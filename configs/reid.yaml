@@ -1,0 +1,7 @@
+model_name: osnet_x1_0
+device: cuda        # or cpu
+batch_size: 64
+ema_alpha: 0.9
+sim_metric: cosine  # cosine recommended
+match_threshold: 0.45
+save_dtype: float32

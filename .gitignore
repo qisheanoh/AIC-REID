@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.venv
+logs/
+runs/
+data/interim/
+data/processed/
+third_party/deep-person-reid/.venv/

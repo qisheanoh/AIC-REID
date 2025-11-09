@@ -1,0 +1,5 @@
+appear_cost_weight: 0.6   # weight for appearance distance (1-cos)
+iou_cost_weight: 0.4
+extract_every_n_frames: 2
+max_age: 30
+min_hits: 3
