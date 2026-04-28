@@ -53,4 +53,25 @@ Before adopting any experiment result:
 
 | Date | Experiment | Changed rows | Purity before | Purity after | Dups | Decision |
 |------|-----------|--------------|--------------|-------------|------|----------|
-| — | (none yet) | — | 0.9558 | — | 0 | — |
+| 2026-04-28 | spatial_disambig_v1 | 0 | 0.9558 | 0.9558 (unchanged) | 0 | NULL RESULT — keep code, do not adopt |
+
+### spatial_disambig_v1 — 2026-04-28 — NULL RESULT
+
+**Tag:** `spatial_disambig_v1`  
+**Files changed:** `src/reid/reentry_linker.py` (ReentryConfig + logic block + decisions_log), `scripts/run_batch.py` (enable flag)  
+**Backup:** `retail-shop_CAM1_tracks.csv.pre-spatial-disambig.csv` (MD5 b9e3e9052d1cacff1334aa82815cc817)
+
+**Implementation:** Gap-normalized spatial plausibility check inside the `cross_person_ambiguous` block. Top candidate labeled implausible if `jump > gap_frames * 180px/frame`. Second candidate labeled plausible if `jump <= gap_frames * 90px/frame`. Fires only when top is implausible, second is plausible, and second rerank score ≥ 0.68.
+
+**Result:** `spatial_disambig_applied = 0` out of 16 cross_person_ambiguous cases. Positive rows: 3,256 → 3,256 (unchanged). Purity: unchanged. Dups: 0.
+
+**Root cause of zero fires:** All 16 cross_person_ambiguous cases have large reentry gaps (min=4, median=204, max=834 frames). At 180px/frame normalization, the speed limit for even the shortest gap (4 frames) is 720px — and the largest observed jump_top for that case is only 100px, well within the limit. For the long-gap cases (gap=341, jump_top=1201px), the limit is 61,380px: no observed jump can exceed it. The gap-normalized threshold is structurally too permissive for this video's cross_person_ambiguous population.
+
+**Design assumption that was wrong:** The design was based on the reid_ambiguity diagnostic which showed a 1617px jump at a 1-frame gap (Row 1). That tracklet was a special case (GT7/10 overlap region with an extremely short ByteTrack-generated gap). The general cross_person_ambiguous population has reentry gaps of 100–834 frames where spatial evidence is not discriminative regardless of jump distance.
+
+**Code status:** Implementation is correct and feature-flagged (`spatial_disambig_enable=False` by default, `True` only for exact CAM1 in run_batch.py). Keep the code — it works and is harmless. Disable the flag until a redesign addresses the gap problem.
+
+**Next direction:** The gap-normalized approach only works if cross_person_ambiguous cases have short gaps. They don't in this video. A redesign should use either:
+1. Absolute distance normalized by frame dimensions (not time) — compare jump to frame diagonal (e.g., ~3040px for 2560×1944), flag as implausible if > 50% of frame width with a SHORT gap
+2. Ratio check: require `jump_top / jump_sec >= 3.0` (top is at least 3× further than second) regardless of absolute distance — this is gap-independent
+3. Abandon spatial lever entirely and prioritize open-set fresh-ID assignment or pair-split redesign instead
