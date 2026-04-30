@@ -13,11 +13,12 @@ env/
 # ── Large binary model weights ────────────────────────────────────────────────
 models/
 
-# ── Raw input videos ──────────────────────────────────────────────────────────
-data/raw/
+# ── Raw input videos (tracked via Git LFS — see .gitattributes) ──────────────
+# data/raw/ is intentionally committed via LFS. The ignore entry has been
+# removed so that new additions continue to be staged and LFS-routed.
 
-# ── Training datasets ─────────────────────────────────────────────────────────
-data/datasets/
+# ── Training datasets (tracked via Git LFS — see .gitattributes) ─────────────
+# data/datasets/ is intentionally committed via LFS. Same policy as data/raw/.
 
 # ── Database ──────────────────────────────────────────────────────────────────
 *.db

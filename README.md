@@ -53,6 +53,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+   `torchreid` installs from PyPI via the above command. If you need the source
+   version (for custom training or GPU-specific builds), install from the local
+   `deep-person-reid/` directory instead:
+   ```bash
+   pip install -e deep-person-reid/
+   ```
+   Do not install both — use one or the other.
+
 3. (Recommended) Use custom model weights if available:
 - detector: `models/yolo_cam1_person.pt`
 - reid: `models/osnet_cam1.pth`
@@ -72,6 +80,11 @@ Useful options:
 - `--disable_reentry_linking` to disable offline re-entry linking
 - `--disable_tracklet_stitching` to disable offline tracklet stitching
 - `--cam1-recovery` to enable conservative CAM1 continuity recovery profile
+
+> **Exact vs substring match:** `--match CAM1` uses substring matching and will
+> also process `FULL_CAM1` if that video is present in the input directory.
+> Use `--match "=cam1"` (leading `=`) for an exact stem match that targets
+> `CAM1` only.
 
 ### 2) Run Online Tracking Only
 
