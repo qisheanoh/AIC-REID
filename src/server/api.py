@@ -907,17 +907,17 @@ def health_data_freshness(camera_id: Optional[str] = None) -> Dict[str, Any]:
 
 @app.get("/ui")
 def ui_page(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+    return templates.TemplateResponse(request, "dashboard.html", {"request": request})
 
 
 @app.get("/ui/upload")
 def ui_upload(request: Request):
-    return templates.TemplateResponse("upload.html", {"request": request})
+    return templates.TemplateResponse(request, "upload.html", {"request": request})
 
 
 @app.get("/ui/zones")
 def ui_zones(request: Request):
-    return templates.TemplateResponse("zones.html", {"request": request})
+    return templates.TemplateResponse(request, "zones.html", {"request": request})
 
 
 @app.get("/meta/cameras")
