@@ -1,0 +1,18 @@
+{
+  "dataset_root": "data/datasets/market1501",
+  "video_path": "data/raw/retail-shop/CAM1.mp4",
+  "audit_csv": "experiments/audit/cam1_manual_audit_sheet.csv",
+  "num_ids": 5,
+  "written": {
+    "train": 290,
+    "query": 40,
+    "gallery": 87
+  },
+  "pid_map": {
+    "10.0": 1,
+    "2.0": 2,
+    "3.0": 3,
+    "6.0": 4,
+    "7.0": 5
+  }
+}
