@@ -1,88 +1,122 @@
-## CAM1 Upgrade Workflow
+# AIC-REID
 
-This repo now includes an end-to-end workflow:
+Audit-Driven Identity-Consistent Person Re-Identification pipeline for retail CCTV analytics.
 
-1. Manual audit sheet
-2. Custom YOLO training
-3. Custom OSNet training
-4. Re-test protocol with pass/fail report
+This project combines:
+- YOLO person detection
+- ByteTrack/BOT-SORT-style online tracking
+- ReID feature extraction (OSNet / `torchreid`)
+- Offline tracklet stitching and re-entry linking
+- Zone-aware KPI analytics
+- FastAPI dashboard for running jobs and inspecting results
 
-### 1) Generate Manual Audit Sheet
+## Repository Layout
 
-```bash
-.venv/bin/python scripts/generate_manual_audit_sheet.py \
-  --tracks_csv runs/kpi_batch/retail-shop_CAM1_tracks.csv \
-  --video_path data/raw/retail-shop/CAM1.mp4
-```
+- `src/`: core pipeline, trackers, ReID, analytics, server
+- `scripts/`: runnable entry points for batch runs, cross-camera runs, diagnostics, and evaluation
+- `configs/`: camera, app, and zone YAML configurations
+- `data/raw/`: input videos (ignored in git)
+- `models/`: detector/ReID weights (ignored in git)
+- `runs/`: generated outputs (tracks, reports, diagnostics, visualizations)
+- `experiments/`: audit sheets, dense-MOT protocol files, and evaluation assets
+- `docs/`: project/report and demo documentation
 
-Fill these files manually:
+## Environment Setup
 
-- `experiments/audit/cam1_manual_audit_sheet.csv`
-- `experiments/audit/cam1_identity_map_template.csv`
-
-Required columns for training/evaluation:
-
-- `frame_idx`, `x1`, `y1`, `x2`, `y2`, `gt_person_id`
-
-### 2) Train Custom YOLO (person-only)
-
-Prepare YOLO dataset:
-
-- `data/datasets/yolo_cam1_person/images/train`
-- `data/datasets/yolo_cam1_person/images/val`
-- `data/datasets/yolo_cam1_person/labels/train`
-- `data/datasets/yolo_cam1_person/labels/val`
-
-Run:
+1. Create and activate a virtual environment:
 
 ```bash
-.venv/bin/python scripts/train_yolo_cam1.py \
-  --data_yaml configs/training/yolo_cam1_person.yaml
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-Exports detector to:
-
-- `models/yolo_cam1_person.pt`
-
-### 3) Build ReID Dataset + Train Custom OSNet
-
-Build Market1501-style dataset from audited rows:
+2. Install dependencies:
 
 ```bash
-.venv/bin/python scripts/build_reid_market1501_from_audit.py \
-  --audit_csv experiments/audit/cam1_manual_audit_sheet.csv \
-  --video_path data/raw/retail-shop/CAM1.mp4
+pip install -r requirements.txt
 ```
 
-Train OSNet:
+3. (Recommended) Use custom model weights if available:
+- detector: `models/yolo_cam1_person.pt`
+- reid: `models/osnet_cam1.pth`
+
+If custom weights are missing, defaults are used where possible (for example `yolov8m.pt` from Ultralytics).
+
+## Quick Start
+
+### 1) Run Main Batch Pipeline (single-camera retail workflow)
 
 ```bash
-.venv/bin/python scripts/train_osnet_cam1.py \
-  --data_root data/datasets \
-  --dataset_name market1501
+python scripts/run_batch.py --match CAM1
 ```
 
-Exports ReID weights to:
+Useful options:
+- `--no-render` to skip output video rendering
+- `--disable_reentry_linking` to disable offline re-entry linking
+- `--disable_tracklet_stitching` to disable offline tracklet stitching
+- `--cam1-recovery` to enable conservative CAM1 continuity recovery profile
 
-- `models/osnet_cam1.pth`
-
-### 4) Re-test Protocol
-
-Run batch + evaluate against manual audit sheet:
+### 2) Run Online Tracking Only
 
 ```bash
-.venv/bin/python scripts/retest_protocol.py \
-  --run_batch_first \
-  --audit_csv experiments/audit/cam1_manual_audit_sheet.csv
+python scripts/run_online_tracking.py \
+  --video data/raw/retail-shop/CAM1.mp4 \
+  --out_csv runs/kpi_batch/retail-shop_CAM1_tracks.csv
 ```
 
-Reports:
-
-- `runs/retest/cam1_retest_report.md`
-- `runs/retest/cam1_retest_report.json`
-
-### One-command Runner
+### 3) Run Cross-Camera Linking
 
 ```bash
-.venv/bin/python scripts/protocol_cam1_upgrade.py --step all
+python scripts/run_cross_cam.py \
+  --video1 data/raw/cross_cam/cross_cam1.mp4 \
+  --video2 data/raw/cross_cam/cross_cam2.mp4 \
+  --out_dir runs/cross_cam
 ```
+
+### 4) Start FastAPI Dashboard
+
+```bash
+uvicorn src.server.api:app --host 127.0.0.1 --port 8000
+```
+
+Open:
+- `http://127.0.0.1:8000/ui`
+
+## Dense MOT Evaluation (CAM1)
+
+Prepare dense subset assets:
+
+```bash
+python scripts/run_dense_mot_evaluation.py --prepare
+```
+
+Validate dense GT:
+
+```bash
+python scripts/validate_dense_mot_gt.py --gt_csv experiments/dense_mot_cam1/dense_gt.csv
+```
+
+Run evaluation:
+
+```bash
+python scripts/run_dense_mot_evaluation.py --evaluate
+```
+
+Outputs:
+- `runs/dense_mot_cam1/dense_mot_summary.csv`
+- `runs/dense_mot_cam1/dense_mot_summary.json`
+- `runs/dense_mot_cam1/dense_mot_report.md`
+
+## KPI/Event Ingestion
+
+Ingest generated track CSVs into SQLite and refresh event analytics:
+
+```bash
+python scripts/ingest_kpi.py --config configs/cameras/kpi_retailshop_cam1.yaml
+```
+
+## Notes
+
+- This repo intentionally ignores large raw datasets (`data/raw/`), training datasets (`data/datasets/`), and model files (`models/`).
+- Several files in `runs/` and `experiments/` are committed as reproducibility artifacts from prior experiments.
+- For large binary files in version control, Git LFS is recommended.
