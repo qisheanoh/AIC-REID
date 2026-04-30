@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Zone Editor</title>
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(2,6,23,0.06);
+      --shadow-sm: 0 6px 16px rgba(2,6,23,0.08);
+      --radius: 16px;
+
+      --accent: #2563eb;
+      --accent-soft: rgba(37,99,235,0.10);
+
+      --danger: #b91c1c;
+      --danger-soft: rgba(185,28,28,0.08);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 500px at 20% 0%, #eef2ff 0%, rgba(238,242,255,0) 55%),
+                  radial-gradient(1000px 500px at 90% 0%, #ecfeff 0%, rgba(236,254,255,0) 55%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
+
+    /* Header */
+    .page-header{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .page-title{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      max-width: 760px;
+    }
+
+    .btn-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      color: #1e40af;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(37,99,235,0.25);
+      background: var(--accent-soft);
+      white-space: nowrap;
+    }
+    .btn-link:hover{ background: rgba(37,99,235,0.14); }
+
+    /* Main card */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden; /* ✅ keep everything inside */
+    }
+
+    .card-inner{
+      padding: 14px;
+    }
+
+    /* Controls row */
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(2,6,23,0.03);
+    }
+
+    .pill label{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    input, select, textarea, button{ font: inherit; }
+
+    input, select{
+      border: none;
+      outline: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      min-width: 160px;
+    }
+
+    button{
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(2,6,23,0.04);
+      white-space: nowrap;
+    }
+    button:hover{ background:#f8fafc; }
+    button:disabled{ opacity: 0.6; cursor: not-allowed; }
+
+    .primary{
+      border-color: rgba(37,99,235,0.30);
+      background: var(--accent-soft);
+      color: #1e40af;
+    }
+    .primary:hover{ background: rgba(37,99,235,0.14); }
+
+    .danger{
+      border-color: rgba(185,28,28,0.25);
+      background: var(--danger-soft);
+      color: #991b1b;
+    }
+    .danger:hover{ background: rgba(185,28,28,0.12); }
+
+    .badge{
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+
+    /* Status */
+    #zoneStatus{
+      margin: 6px 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Layout */
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 980px){
+      .layout{
+        grid-template-columns: minmax(0,1fr) 420px;
+        align-items: start;
+      }
+    }
+
+    /* Left: canvas stage */
+    .canvas-stage{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      min-height: 520px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px;
+    }
+
+    canvas{
+      display:block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .toolbar{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .form-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .hint{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    /* ✅ Right sidebar INSIDE white box */
+    .side{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .side h3{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .side-actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .side-actions.three{
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .side-actions button{
+      width: 100%;
+      justify-content: center;
+    }
+
+    .zonesList{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 8px;
+      max-height: 260px;
+      overflow:auto;
+    }
+
+    .zoneItem{
+      padding: 10px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items:center;
+      border: 1px solid transparent;
+    }
+    .zoneItem:hover{ background:#f8fafc; }
+    .zoneItem.active{
+      background: rgba(37,99,235,0.08);
+      border-color: rgba(37,99,235,0.25);
+    }
+
+    .divider{
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+
+    textarea{
+      width: 100%;
+      height: 170px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      background: #fff;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Zone Editor</h1>
+        <p class="page-sub">
+          Draw polygon zones on a reference frame and store them in SQLite. Use <b>ankle</b> for entrance/floor zones and <b>center</b> for shelf/hot zones.
+          Shortcuts: <b>U</b>=Undo, <b>R</b>=Redo, <b>Z</b>=Close, <b>Esc</b>=Clear.
+        </p>
+      </div>
+      <a class="btn-link" id="dashboardLink" href="/ui">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <!-- Controls -->
+        <div class="controls">
+          <div class="pill">
+            <label for="cameraId">Camera</label>
+            <select id="cameraId">
+              <option value="cam1" selected>cam1</option>
+            </select>
+          </div>
+
+          <div class="pill">
+            <label for="clipId">Clip</label>
+            <select id="clipId"></select>
+          </div>
+
+          <button id="loadFrameBtn" class="primary">Load Frame</button>
+          <button id="recomputeBtn" class="primary">Apply Zones to Analytics</button>
+          <span class="badge">Click to add points · Double-click to close</span>
+        </div>
+        <div id="cameraAliasHint" class="hint" style="margin-top:-4px; margin-bottom:6px;"></div>
+
+        <div id="modeNotice" class="hint" style="margin-top:-2px; margin-bottom:8px;"></div>
+        <div id="zoneStatus">Ready.</div>
+
+        <div class="layout">
+          <!-- LEFT -->
+          <div>
+            <div class="canvas-stage" id="canvasBox">
+              <canvas id="cv" width="960" height="540"></canvas>
+            </div>
+
+            <div class="toolbar">
+              <button id="undoBtn">Undo</button>
+              <button id="redoBtn">Redo</button>
+              <button id="clearBtn">Clear</button>
+              <button id="closeBtn">Close polygon</button>
+            </div>
+
+            <div class="form-row">
+              <div class="pill" style="border-radius:14px;">
+                <label for="zoneName">Name</label>
+                <input id="zoneName" placeholder="entrance_zone / hot_zone" />
+              </div>
+
+              <div class="pill" style="border-radius:14px;">
+                <label for="zoneType">Type</label>
+                <select id="zoneType">
+                  <option value="promo">promo</option>
+                  <option value="checkout">checkout</option>
+                  <option value="entrance">entrance</option>
+                  <option value="aisle">aisle</option>
+                  <option value="other" selected>other</option>
+                </select>
+              </div>
+
+              <button id="saveBtn" class="primary">Save / Update</button>
+            </div>
+
+            <div class="hint">
+              Polygons are stored as <b>pixel coordinates</b>. Offline assignment:
+              <b>add_zones_to_tracks.py --point ankle</b> (entrance) or <b>--point center</b> (hot).
+            </div>
+          </div>
+
+          <!-- RIGHT (inside card) -->
+          <div class="side">
+            <h3>Zones in DB</h3>
+            <div class="side-actions">
+              <button id="refreshZonesBtn" class="primary">Refresh</button>
+              <button id="deleteZoneBtn" class="danger">Delete selected</button>
+            </div>
+
+            <div class="zonesList" id="zonesList"></div>
+
+            <div class="divider"></div>
+
+            <h3>YAML Import / Export</h3>
+            <div class="side-actions three">
+              <button id="exportYamlBtn">Export YAML</button>
+              <button id="importYamlBtn">Import YAML</button>
+              <button id="downloadSnapshotBtn" class="primary">Snapshot</button>
+            </div>
+
+            <textarea id="yamlBox" placeholder="zones:\n  - zone_id: promo\n    polygon: [[x,y], ...]"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/zones_editor.js?v=20260429_cam1alias"></script>
+</body>
+</html>

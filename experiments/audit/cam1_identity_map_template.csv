@@ -1,0 +1,12 @@
+pred_global_id,canonical_person_id,identity_name,audit_action,merge_into_pred_global_id,
+1.0,1.0,black_shirt man with blue pants,Keep,,
+2.0,2.0,brown_shirt man,Keep,,
+3.0,3.0,Green shirt girl,Keep,,
+4.0,4.0,black_shirt man with black pants,Keep,,
+5.0,5.0,Red shirt man,Keep,,
+6.0,6.0,Pink shirt woman,Keep,,
+7.0,7.0,Beige shirt woman sit down at chair,Keep,,
+8.0,8.0,Black shirt woman with black pants,Keep,,
+9.0,9.0,Brown shirt woman,Relabel,,Wrong used by the grey shirt man
+10.0,10.0,Black shirt boy with short black pants,Keep,,
+11.0,11.0,Grey shirt man,Keep,,

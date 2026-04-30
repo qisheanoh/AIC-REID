@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload Video — Retail Analytics</title>
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(2,6,23,0.06);
+      --shadow-sm: 0 6px 16px rgba(2,6,23,0.08);
+      --radius: 16px;
+      --accent: #2563eb;
+      --danger: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 500px at 20% 0%, #eef2ff 0%, rgba(238,242,255,0) 55%),
+        radial-gradient(1000px 500px at 90% 0%, #ecfeff 0%, rgba(236,254,255,0) 55%),
+        var(--bg);
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 26px 18px 60px;
+    }
+
+    /* ── topbar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 14px 0;
+      backdrop-filter: blur(10px);
+      background: rgba(246,247,251,0.75);
+      border-bottom: 1px solid rgba(229,231,235,0.7);
+    }
+
+    .header {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .title-wrap p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(37,99,235,0.25);
+      background: rgba(37,99,235,0.06);
+      height: fit-content;
+      white-space: nowrap;
+    }
+
+    .link:hover { background: rgba(37,99,235,0.10); }
+
+    /* ── upload card ── */
+    .upload-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── drop zone ── */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: #fafcff;
+      position: relative;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: rgba(37,99,235,0.45);
+      background: rgba(37,99,235,0.04);
+    }
+
+    .drop-zone.has-file {
+      border-color: rgba(21,128,61,0.40);
+      background: rgba(21,128,61,0.04);
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .drop-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .drop-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .drop-filename {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #15803d;
+    }
+
+    /* ── form fields ── */
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-row input[type="text"] {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--card);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-row input[type="text"]:focus {
+      border-color: rgba(37,99,235,0.45);
+    }
+
+    /* ── clip_id preview ── */
+    .clip-preview {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: monospace;
+      color: var(--muted);
+      background: #f8fafc;
+      min-height: 38px;
+    }
+
+    .clip-preview.ready {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── upload button ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(2,6,23,0.04);
+    }
+
+    .btn.primary {
+      border-color: rgba(37,99,235,0.30);
+      background: rgba(37,99,235,0.10);
+      color: #1e40af;
+      width: 100%;
+    }
+
+    .btn.primary:hover { background: rgba(37,99,235,0.14); }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ── status banner ── */
+    #uploadBanner {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #334155;
+      background: #f8fafc;
+    }
+
+    #uploadBanner.success {
+      border-color: rgba(21,128,61,0.30);
+      background: rgba(21,128,61,0.05);
+      color: #14532d;
+    }
+
+    #uploadBanner.error {
+      border-color: rgba(185,28,28,0.25);
+      background: rgba(185,28,28,0.04);
+      color: #991b1b;
+    }
+
+    #uploadBanner .banner-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    #uploadBanner.success .banner-label { color: #15803d; }
+    #uploadBanner.error .banner-label   { color: #b91c1c; }
+
+    /* ── Stage 1 preprocessing banner (matches dashboard.html) ── */
+    #preprocessBanner {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #334155;
+      background: #f8fafc;
+    }
+    #preprocessBanner.scanning {
+      border-color: rgba(37,99,235,0.20);
+      background: rgba(37,99,235,0.04);
+    }
+    #preprocessBanner.found {
+      border-color: rgba(37,99,235,0.20);
+      background: rgba(37,99,235,0.04);
+    }
+    #preprocessBanner.found.clean {
+      border-color: rgba(21,128,61,0.25);
+      background: rgba(21,128,61,0.04);
+    }
+    #preprocessBanner.scan-error {
+      border-color: rgba(185,28,28,0.25);
+      background: rgba(185,28,28,0.04);
+    }
+    #preprocessBanner .pp-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    #preprocessBanner .pp-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+      align-items: center;
+    }
+    #preprocessBanner .pp-item {
+      white-space: nowrap;
+      color: var(--muted);
+    }
+    #preprocessBanner .pp-item span {
+      font-weight: 700;
+      color: var(--text);
+    }
+    #preprocessBanner .pp-bad {
+      white-space: nowrap;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+    #preprocessBanner .pp-bad.clean { color: #15803d; }
+
+    /* ── pipeline banner (matches dashboard.html) ── */
+    #pipelineBanner {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #334155;
+      background: #f8fafc;
+    }
+    #pipelineBanner.running {
+      border-color: rgba(37,99,235,0.20);
+      background: rgba(37,99,235,0.04);
+    }
+    #pipelineBanner.done {
+      border-color: rgba(21,128,61,0.25);
+      background: rgba(21,128,61,0.04);
+    }
+    #pipelineBanner.error {
+      border-color: rgba(185,28,28,0.25);
+      background: rgba(185,28,28,0.04);
+    }
+    #pipelineBanner .pl-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    #pipelineBanner .pl-log {
+      margin-top: 8px;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--muted);
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 8px;
+      white-space: pre-wrap;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="header">
+        <div class="title-wrap">
+          <h1>Upload Video</h1>
+          <p>Add a new clip to the pipeline. Only .mp4 files are accepted.</p>
+        </div>
+        <a href="/ui" class="link">← Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="upload-card">
+
+      <!-- Drop zone -->
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept=".mp4,video/mp4" />
+        <div class="drop-icon">&#8593;</div>
+        <div class="drop-title">Drop MP4 here or click to browse</div>
+        <div class="drop-sub">.mp4 only &middot; max 2 GB</div>
+        <div class="drop-filename" id="dropFilename"></div>
+      </div>
+
+      <!-- Group field -->
+      <div class="form-row">
+        <label for="groupInput">Group (subfolder)</label>
+        <input type="text" id="groupInput" value="retail-shop"
+               placeholder="e.g. retail-shop" autocomplete="off" spellcheck="false" />
+      </div>
+
+      <!-- clip_id preview -->
+      <div class="form-row">
+        <label>Derived Clip ID</label>
+        <div class="clip-preview" id="clipPreview">Choose a file to preview the clip ID</div>
+      </div>
+
+      <!-- Upload status banner -->
+      <div id="uploadBanner">
+        <div class="banner-label" id="bannerLabel"></div>
+        <div id="bannerBody"></div>
+      </div>
+
+      <!-- Stage 1 preprocessing banner -->
+      <div id="preprocessBanner"></div>
+
+      <!-- Stages 2–4 pipeline banner -->
+      <div id="pipelineBanner"></div>
+
+      <!-- Run Pipeline button — shown only after preprocessing succeeds -->
+      <button class="btn primary" id="btnRunPipeline" style="display:none" disabled>Run Pipeline</button>
+
+      <!-- Upload button -->
+      <button class="btn primary" id="btnUpload" disabled>Upload</button>
+
+    </div>
+  </div>
+
+  <script>
+    const dropZone    = document.getElementById("dropZone");
+    const fileInput   = document.getElementById("fileInput");
+    const groupInput  = document.getElementById("groupInput");
+    const clipPreview = document.getElementById("clipPreview");
+    const dropFilename = document.getElementById("dropFilename");
+    const btnUpload   = document.getElementById("btnUpload");
+    const uploadBanner = document.getElementById("uploadBanner");
+    const bannerLabel  = document.getElementById("bannerLabel");
+    const bannerBody   = document.getElementById("bannerBody");
+
+    let selectedFile  = null;
+    let currentClipId = null;
+    let _pollTimer    = null;
+
+    // ── sanitise helpers (mirrors backend logic) ──────────────────────────────
+    function sanitisePart(s) {
+      return s.trim().replace(/[^\w\-.]/g, "_").replace(/^[_.]+|[_.]+$/g, "");
+    }
+
+    function deriveClipId(filename, group) {
+      const stem = filename.replace(/\.mp4$/i, "");
+      const g = sanitisePart(group || "retail-shop") || "retail-shop";
+      const s = sanitisePart(stem) || "clip";
+      return `${g}_${s}`;
+    }
+
+    function updatePreview() {
+      if (!selectedFile) {
+        clipPreview.textContent = "Choose a file to preview the clip ID";
+        clipPreview.className = "clip-preview";
+        btnUpload.disabled = true;
+        return;
+      }
+      const id = deriveClipId(selectedFile.name, groupInput.value);
+      clipPreview.textContent = id;
+      clipPreview.className = "clip-preview ready";
+      btnUpload.disabled = false;
+    }
+
+    // ── drag-and-drop ─────────────────────────────────────────────────────────
+    dropZone.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropZone.classList.add("drag-over");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("drag-over");
+    });
+
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over");
+      const f = e.dataTransfer?.files?.[0];
+      if (f) setFile(f);
+    });
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files?.[0]) setFile(fileInput.files[0]);
+    });
+
+    groupInput.addEventListener("input", updatePreview);
+
+    function setFile(f) {
+      if (!f.name.toLowerCase().endsWith(".mp4")) {
+        showBanner("error", "Invalid file", "Only .mp4 files are accepted.");
+        return;
+      }
+      selectedFile = f;
+      dropFilename.textContent = f.name;
+      dropZone.classList.add("has-file");
+      hideBanner();
+      updatePreview();
+    }
+
+    const preprocessBanner = document.getElementById("preprocessBanner");
+    const pipelineBanner   = document.getElementById("pipelineBanner");
+    const btnRunPipeline   = document.getElementById("btnRunPipeline");
+
+    // ── upload banner helpers ─────────────────────────────────────────────────
+    function showUploadBanner(state, label, body) {
+      uploadBanner.style.display = "block";
+      uploadBanner.className = state;
+      bannerLabel.textContent = label;
+      bannerBody.innerHTML = body;
+    }
+
+    function hideUploadBanner() {
+      uploadBanner.style.display = "none";
+      uploadBanner.className = "";
+    }
+
+    // ── preprocess banner helpers (mirrors dashboard.js) ──────────────────────
+    function _escHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function _humanCondition(key) {
+      const map = {
+        white_ratio:   "washed out",
+        mean_gray:     "overexposed",
+        std_gray:      "low texture",
+        null_or_empty: "blank frame",
+      };
+      return map[key] || String(key).replace(/_/g, " ");
+    }
+
+    function _renderPreprocessBanner(data, clip) {
+      preprocessBanner.style.display = "block";
+
+      if (!data?.found || !data?.report) {
+        preprocessBanner.className = "scan-error";
+        preprocessBanner.innerHTML =
+          `<div class="pp-label">Stage 1 · Preprocessing</div>` +
+          `No report returned for <strong>${_escHtml(clip)}</strong>.`;
+        return;
+      }
+
+      const r = data.report;
+      const q = r.quality || {};
+      const [w, h] = Array.isArray(r.resolution) ? r.resolution : [null, null];
+      const res   = (w && h) ? `${w}×${h}` : "–";
+      const fps   = Number.isFinite(Number(r.fps))       ? Number(r.fps).toFixed(2)       : "–";
+      const dur   = Number.isFinite(Number(r.duration_s)) ? Number(r.duration_s).toFixed(1) : "–";
+      const total = q.total_frames ?? r.frame_count ?? "–";
+      const bad   = q.bad_frames ?? 0;
+      const pct   = q.bad_pct   ?? 0;
+
+      const reasonEntries = Object.entries(q.reasons || {}).sort((a, b) => b[1] - a[1]);
+      const dominant = reasonEntries.length ? reasonEntries[0][0] : null;
+      const condStr  = dominant ? ` · ${_humanCondition(dominant)}` : "";
+
+      const isClean  = Number(pct) === 0;
+      const badClass = isClean ? "pp-bad clean" : "pp-bad";
+      const pctFmt   = isClean ? "0%" : `${pct}%`;
+      const badStr   = `${bad} / ${total} (${pctFmt})${condStr}`;
+
+      preprocessBanner.className = isClean ? "found clean" : "found";
+      preprocessBanner.innerHTML =
+        `<div class="pp-label">Stage 1 · Preprocessing</div>` +
+        `<div class="pp-row">` +
+          `<span class="pp-item"><span>${_escHtml(r.video || clip)}</span></span>` +
+          `<span class="pp-item">Resolution: <span>${res}</span></span>` +
+          `<span class="pp-item">FPS: <span>${fps}</span></span>` +
+          `<span class="pp-item">Frames: <span>${total}</span></span>` +
+          `<span class="pp-item">Duration: <span>${dur} s</span></span>` +
+          `<span class="${badClass}">Bad frames: ${badStr}</span>` +
+        `</div>`;
+    }
+
+    async function runPreprocess(clipId) {
+      preprocessBanner.style.display = "block";
+      preprocessBanner.className = "scanning";
+      preprocessBanner.innerHTML =
+        `<div class="pp-label">Stage 1 · Preprocessing</div>` +
+        `Scanning <strong>${_escHtml(clipId)}</strong>… this may take ~20 s`;
+
+      try {
+        const res  = await fetch("/pipeline/preprocess", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ clip_id: clipId }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          preprocessBanner.className = "scan-error";
+          preprocessBanner.innerHTML =
+            `<div class="pp-label">Stage 1 · Preprocessing</div>` +
+            `Scan failed: ${_escHtml(data.detail || `HTTP ${res.status}`)}`;
+          return;
+        }
+        _renderPreprocessBanner(data, clipId);
+        currentClipId = clipId;
+        btnRunPipeline.style.display = "block";
+        btnRunPipeline.disabled = false;
+      } catch (err) {
+        preprocessBanner.className = "scan-error";
+        preprocessBanner.innerHTML =
+          `<div class="pp-label">Stage 1 · Preprocessing</div>` +
+          `Scan failed: ${_escHtml(String(err))}`;
+      }
+    }
+
+    // ── pipeline run (mirrors dashboard.js) ──────────────────────────────────
+    function _cleanLogTail(raw) {
+      if (!raw) return "";
+      return raw.split("\n")
+        .filter(l => {
+          const t = l.trim();
+          return t && !t.startsWith("warnings.warn(") && !t.includes("UserWarning");
+        })
+        .slice(-12)
+        .join("\n");
+    }
+
+    function _renderPipelineBanner(state, msg, logTail) {
+      pipelineBanner.style.display = "block";
+      pipelineBanner.className = state;
+      let html = `<div class="pl-label">Stages 2–4 · Pipeline Run</div>${msg}`;
+      if (logTail) html += `<div class="pl-log">${_escHtml(logTail)}</div>`;
+      pipelineBanner.innerHTML = html;
+    }
+
+    async function _pollJobStatus(jobId, clipId) {
+      try {
+        const res  = await fetch(`/pipeline/status/${encodeURIComponent(jobId)}`);
+        const data = await res.json().catch(() => ({}));
+        const status  = data?.status || "unknown";
+        const elapsed = data?.elapsed_s ?? "…";
+        const tail    = _cleanLogTail(data?.log_tail || "");
+
+        if (status === "running") {
+          _renderPipelineBanner("running",
+            `Running pipeline for <strong>${_escHtml(clipId)}</strong>… (${elapsed} s elapsed)`,
+            tail || null);
+          _pollTimer = setTimeout(() => _pollJobStatus(jobId, clipId), 3000);
+        } else if (status === "done") {
+          _renderPipelineBanner("done",
+            `Pipeline complete · <strong>${_escHtml(clipId)}</strong> · ${elapsed} s · ` +
+            `<a href="/ui?camera_id=uploaded&clip_id=${encodeURIComponent(clipId)}" ` +
+            `style="color:#1e40af;font-weight:700;">View Results →</a>`,
+            null);
+          btnRunPipeline.disabled = false;
+          btnRunPipeline.textContent = "Run Pipeline";
+        } else {
+          const errDetail = data?.error ? `: ${_escHtml(data.error)}` : "";
+          _renderPipelineBanner("error",
+            `Pipeline failed for <strong>${_escHtml(clipId)}</strong>${errDetail}`,
+            tail || null);
+          btnRunPipeline.disabled = false;
+          btnRunPipeline.textContent = "Run Pipeline";
+        }
+      } catch {
+        _pollTimer = setTimeout(() => _pollJobStatus(jobId, clipId), 5000);
+      }
+    }
+
+    btnRunPipeline.addEventListener("click", async () => {
+      if (!currentClipId) return;
+      btnRunPipeline.disabled = true;
+      btnRunPipeline.textContent = "Starting…";
+      pipelineBanner.style.display = "none";
+
+      try {
+        const res  = await fetch("/pipeline/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ clip_id: currentClipId }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          const detail = data.detail || `HTTP ${res.status}`;
+          _renderPipelineBanner("error",
+            `Could not start pipeline: ${_escHtml(detail)}`, null);
+          btnRunPipeline.disabled = false;
+          btnRunPipeline.textContent = "Run Pipeline";
+          return;
+        }
+
+        btnRunPipeline.textContent = "Running…";
+        _pollJobStatus(data.job_id, currentClipId);
+      } catch (err) {
+        _renderPipelineBanner("error",
+          `Network error: ${_escHtml(String(err))}`, null);
+        btnRunPipeline.disabled = false;
+        btnRunPipeline.textContent = "Run Pipeline";
+      }
+    });
+
+    // ── upload ────────────────────────────────────────────────────────────────
+    btnUpload.addEventListener("click", async () => {
+      if (!selectedFile) return;
+
+      btnUpload.disabled = true;
+      btnUpload.textContent = "Uploading…";
+      hideUploadBanner();
+      preprocessBanner.style.display = "none";
+      pipelineBanner.style.display = "none";
+      btnRunPipeline.style.display = "none";
+      btnRunPipeline.disabled = true;
+      currentClipId = null;
+      if (_pollTimer) { clearTimeout(_pollTimer); _pollTimer = null; }
+
+      const fd = new FormData();
+      fd.append("file", selectedFile, selectedFile.name);
+      fd.append("group", groupInput.value.trim() || "retail-shop");
+
+      try {
+        const res  = await fetch("/upload", { method: "POST", body: fd });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok) {
+          const clipId = data.clip_id || "–";
+          const sizeMb = data.size_mb ?? "–";
+          showUploadBanner(
+            "success",
+            "Uploaded",
+            `<strong>${_escHtml(clipId)}</strong> &middot; ${sizeMb} MB &middot; ` +
+            `<small>${_escHtml(data.path || "")}</small>`
+          );
+          await runPreprocess(clipId);
+        } else {
+          const detail = data.detail || `HTTP ${res.status}`;
+          const label  = res.status === 409 ? "Already exists" : "Upload failed";
+          showUploadBanner("error", label, detail);
+          btnUpload.disabled = false;
+        }
+      } catch (err) {
+        showUploadBanner("error", "Network error", String(err));
+        btnUpload.disabled = false;
+      }
+
+      btnUpload.textContent = "Upload";
+    });
+  </script>
+</body>
+</html>

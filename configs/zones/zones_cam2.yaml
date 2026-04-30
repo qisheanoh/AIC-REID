@@ -1,0 +1,20 @@
+camera_id: cam2
+
+zones:
+  - zone_id: hot_zone
+    name: Hot Shelf Area
+    zone_type: aisle
+    polygon:
+      - [350, 120]
+      - [800, 120]
+      - [800, 360]
+      - [350, 360]
+
+  - zone_id: promo_zone
+    name: Promotional Shelf
+    zone_type: promo
+    polygon:
+      - [820, 150]
+      - [1050, 150]
+      - [1050, 380]
+      - [820, 380]

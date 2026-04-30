@@ -1,0 +1,26 @@
+{
+  "valid": true,
+  "gt_csv": "experiments/dense_mot_cam1/dense_gt.csv",
+  "selected_frames_csv": "/Users/ohqishean/AIC-REID/experiments/dense_mot_cam1/selected_frames.csv",
+  "strict_complete": true,
+  "rows_total": 1110,
+  "frames_selected_total": 300,
+  "frames_annotated": 300,
+  "gt_boxes": 1110,
+  "ignored_boxes": 0,
+  "identities_count": 33,
+  "missing_selected_frames_count": 0,
+  "missing_selected_frames_preview": [],
+  "missing_selected_frames": [],
+  "errors": [],
+  "warnings": [],
+  "value_counts": {
+    "ignore": {
+      "0": 1110
+    },
+    "visibility": {
+      "1.0": 450,
+      "0.5": 660
+    }
+  }
+}

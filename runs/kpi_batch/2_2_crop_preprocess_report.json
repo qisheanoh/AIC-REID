@@ -1,0 +1,21 @@
+{
+  "video": "2_2_crop.mp4",
+  "resolution": [
+    920,
+    680
+  ],
+  "fps": 30.0,
+  "frame_count": 3788,
+  "duration_s": 126.27,
+  "codec": "h264",
+  "quality": {
+    "total_frames": 3788,
+    "bad_frames": 2,
+    "bad_pct": 0.05,
+    "mean_gray_avg": 129.48,
+    "std_gray_avg": 57.33,
+    "reasons": {
+      "white_ratio": 2
+    }
+  }
+}

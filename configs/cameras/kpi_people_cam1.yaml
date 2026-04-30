@@ -1,0 +1,4 @@
+camera_id: people_cam1
+db:
+  path: data/retail.db
+csv_glob: "runs/kpi_batch/person_*_tracks.csv"

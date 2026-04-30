@@ -1,0 +1,18 @@
+{
+  "tracklets_total": 279,
+  "reentry_attempts": 277,
+  "accepted_reuses": 65,
+  "accepted_same_source_bias": 0,
+  "same_source_candidate_seen": 267,
+  "blocked_cross_source_by_same_source": 0,
+  "rejected_weak": 8,
+  "rejected_ambiguous": 204,
+  "rejected_conflict": 0,
+  "new_ids_created": 214,
+  "group_merged_gid_pairs": 196,
+  "overlap_handoff_merged_gid_pairs": 6,
+  "overlap_windows_count": 2,
+  "overlap_anti_switch_locks": 0,
+  "local_consistency_reassignments": 0,
+  "dedup_changed_rows": 0
+}

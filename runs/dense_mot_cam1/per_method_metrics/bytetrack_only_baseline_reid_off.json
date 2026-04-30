@@ -1,0 +1,31 @@
+{
+  "tracks_csv": "/Users/ohqishean/AIC-REID/runs/baselines/cam1_bytetrack_only_20260428_223244/retail-shop_CAM1_tracks.csv",
+  "gt_csv": "/Users/ohqishean/AIC-REID/experiments/dense_mot_cam1/dense_gt.csv",
+  "selected_frames_csv": "/Users/ohqishean/AIC-REID/experiments/dense_mot_cam1/selected_frames.csv",
+  "iou_threshold": 0.5,
+  "ignore_iou_threshold": 0.5,
+  "include_zero_gid": false,
+  "frames_evaluated": 300,
+  "gt_boxes": 1110,
+  "pred_boxes": 971,
+  "ignored_predictions_suppressed": 0,
+  "matched_boxes": 87,
+  "FP": 884,
+  "FN": 1023,
+  "IDSW": 1,
+  "MOTA": -0.7189189189189189,
+  "IDP": null,
+  "IDR": null,
+  "IDF1": null,
+  "HOTA": null,
+  "mostly_tracked": 1,
+  "mostly_lost": 28,
+  "detection_precision": 0.08959835221421215,
+  "detection_recall": 0.07837837837837838,
+  "mean_iou": 0.5831603051602156,
+  "id_metric_source": "motmetrics_unavailable:ModuleNotFoundError(\"No module named 'motmetrics'\")",
+  "notes": [
+    "IDP/IDR/IDF1 not computed from a trusted library because motmetrics is unavailable.",
+    "HOTA not computed; requires TrackEval or an equivalent validated implementation."
+  ]
+}

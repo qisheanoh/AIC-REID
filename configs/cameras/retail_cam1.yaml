@@ -1,0 +1,73 @@
+camera_id: cam1
+
+# ✅ REQUIRED (relative to repo root) OR rtsp://....
+video_source: data/raw/retail-shop/CAM1.mp4
+# video_source: data/raw/person_01/1_2_crop.mp4
+# video_source: rtsp://username:password@ip/stream
+
+# ✅ zones definition file used by run_stream.py
+zones_config: configs/zones/zones_cam1.yaml
+
+kpi_csv_glob: runs/kpi_batch/retail-shop_CAM1_tracks.csv
+
+# optional (if your FPS is missing or wrong)
+fps_override: null
+
+db:
+  path: data/retail.db
+
+detector:
+  weights: yolov8s.pt
+  imgsz: 960
+  conf: 0.25
+  iou: 0.50
+  classes: [0]
+
+tracker:
+  track_thresh: 0.45
+  active_match_iou_thresh: 0.20
+  lost_match_iou_thresh: 0.10
+  match_feat_thresh: 0.46
+  strong_reid_thresh: 0.80
+  long_lost_reid_thresh: 0.84
+  alpha_active: 0.35
+  alpha_lost: 0.90
+  track_buffer: 160
+  motion_max_center_dist: 0.70
+  motion_max_gap: 30
+  overlap_iou_thresh: 0.22
+  min_height_ratio_for_update: 0.72
+  min_match_conf: 0.30
+  feature_history: 40
+  feature_update_min_sim: 0.66
+  confirm_hits: 4
+  bad_frame_hold: 12
+  min_confirmed_hits_for_gid: 2
+  min_height_ratio: 0.17
+  min_width_ratio: 0.06
+
+reid:
+  enabled: true
+  model_name: osnet_x1_0
+  # Fall back to the local fine-tuned model if present, otherwise use the
+  # torchreid pretrained model. The runtime will handle missing files.
+  weights_path: models/osnet_cam1.pth
+  f_os: 1.00
+  f_attire: 0.70
+  f_shape: 0.22
+
+id_bank:
+  # Slightly relaxed from prior (0.86 → 0.90 was too strict) and aligned with
+  # the runtime-profile values applied by scripts/run_batch.py.
+  hard_thresh: 0.84
+  soft_thresh: 0.76
+  margin: 0.08
+  ema: 0.92
+  min_update_sim: 0.82
+  enroll_reuse_thresh: 0.88
+  enroll_protect_states: 10
+  verbose: false
+
+privacy:
+  redact: false
+  store_frames: true

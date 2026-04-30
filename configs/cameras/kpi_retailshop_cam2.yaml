@@ -1,0 +1,4 @@
+camera_id: cam2
+db:
+  path: data/retail.db
+kpi_csv_glob: runs/kpi_batch/retail-shop_CAM2_tracks.csv

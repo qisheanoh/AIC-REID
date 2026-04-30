@@ -1,0 +1,60 @@
+camera_id: cam1
+
+zones:
+  # Product display zones — listed first so foot-point assignment gives them
+  # priority over the generic entrance/walkway corridor zones below.
+  #
+  # ⚠ VISUAL CHECK REQUIRED before running add_zones.py:
+  #   Confirm Z02/Z03 foot_y split direction (see checklist at bottom of file).
+
+  - zone_id: CAM1_Z01
+    name: Left Wall / Tap Rack
+    zone_type: product
+    polygon:
+      - [150,  700]
+      - [900,  700]
+      - [900, 1800]
+      - [150, 1800]
+
+  - zone_id: CAM1_Z02
+    name: Front-Right Basin Display
+    zone_type: product
+    polygon:
+      - [1050,  650]
+      - [2300,  650]
+      - [2300, 1050]
+      - [1050, 1050]
+
+  - zone_id: CAM1_Z03
+    name: Right Wall Toilet Display
+    zone_type: product
+    polygon:
+      - [1600, 1000]
+      - [2560, 1000]
+      - [2560, 1600]
+      - [1600, 1600]
+
+  # Corridor zones — unchanged.
+
+  # entrance_zone: covers the full entrance band across the scene width.
+  # ankle anchor (y2) must fall within y:[620..960].
+  # x range spans far-left to far-right to capture all walking paths.
+  - zone_id: entrance_zone
+    name: Entrance
+    zone_type: entrance
+    polygon:
+      - [400, 620]
+      - [2400, 620]
+      - [2400, 960]
+      - [400, 960]
+
+  # walkway_zone: main walkway below entrance.
+  # Extended down to y=1460 to capture persons at bottom of frame (ankle_y ~1405).
+  - zone_id: walkway_zone
+    name: Walkway
+    zone_type: walkway
+    polygon:
+      - [400, 920]
+      - [2400, 920]
+      - [2400, 1460]
+      - [400, 1460]

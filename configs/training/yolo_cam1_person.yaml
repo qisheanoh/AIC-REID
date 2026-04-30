@@ -1,0 +1,12 @@
+# Custom CAM1 YOLO person dataset
+# Prepare YOLO-format data under:
+# data/datasets/yolo_cam1_person/images/{train,val}
+# data/datasets/yolo_cam1_person/labels/{train,val}
+
+path: data/datasets/yolo_cam1_person
+train: images/train
+val: images/val
+
+names:
+  0: person
+

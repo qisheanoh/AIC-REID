@@ -1,0 +1,20 @@
+{
+  "tracklets_total": 41,
+  "reentry_attempts": 37,
+  "accepted_reuses": 10,
+  "accepted_same_source_bias": 0,
+  "accepted_same_source_stitch_trust": 0,
+  "accepted_single_candidate": 0,
+  "same_source_candidate_seen": 31,
+  "blocked_cross_source_by_same_source": 0,
+  "rejected_weak": 10,
+  "rejected_ambiguous": 17,
+  "rejected_conflict": 0,
+  "new_ids_created": 31,
+  "group_merged_gid_pairs": 5,
+  "overlap_handoff_merged_gid_pairs": 3,
+  "overlap_windows_count": 5,
+  "overlap_anti_switch_locks": 0,
+  "local_consistency_reassignments": 1,
+  "dedup_changed_rows": 0
+}

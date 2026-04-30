@@ -1,0 +1,228 @@
+# AIC-REID PROTECTED FILE MANIFEST
+# Generated: 2026-04-30
+# Purpose: Files/folders that must NOT be touched during cleanup.
+# Verify with: scripts/verify_manifest.sh or the verification step in cleanup plan.
+#
+# Format: one path per line (relative to project root /Users/ohqishean/AIC-REID)
+# Lines starting with # are comments.
+
+# ── FINAL REPORT DOCUMENTS ─────────────────────────────────────────────────
+An Audit-Driven Identity-Consistent Person Re-Identification Pipeline for Retail Customer Behaviour Analytics.pdf
+FYP_AIC-REID_20512381.docx
+FYP_AIC-REID_20512381_AUDIT_APPLIED.pdf
+dissertation_AIC_ReID_publish_level.pdf
+
+# ── FROZEN CAM1 BASELINE (NEVER TOUCH) ──────────────────────────────────────
+runs/baseline_freeze_2026-04-28/retail-shop_CAM1_tracks.FROZEN.csv
+runs/baseline_freeze_2026-04-28/BASELINE_FREEZE_NOTE.md
+runs/baseline_freeze_2026-04-28/final_report_revised_publishable.FROZEN.md
+runs/baseline_freeze_2026-04-28/run_batch.FROZEN.py
+runs/baseline_freeze_2026-04-28/track_linker.FROZEN.py
+
+# ── CURRENT FINAL RESULTS ───────────────────────────────────────────────────
+runs/kpi_batch/retail-shop_CAM1_tracks.csv
+runs/kpi_batch/retail-shop_FULL_CAM1_tracks.csv
+runs/kpi_batch/retail-shop_Demo_Video_tracks.csv
+runs/kpi_batch/retail-shop_1_3_crop_tracks.csv
+runs/kpi_batch/retail-shop_2_2_crop_tracks.csv
+
+# ── COMPARISON TABLE BASELINES ───────────────────────────────────────────────
+runs/baselines/cam1_botsort_online_20260428_221824/retail-shop_CAM1_tracks.csv
+runs/baselines/cam1_botsort_online_20260428_221824/score_locked_protocol.json
+runs/baselines/cam1_bytetrack_only_20260428_223244/retail-shop_CAM1_tracks.csv
+runs/baselines/cam1_bytetrack_only_20260428_223244/score_locked_protocol.json
+runs/baselines/cam1_no_audit_offline_repair_20260428_220407/retail-shop_CAM1_tracks.csv
+runs/baselines/cam1_no_audit_offline_repair_20260428_220407/score_locked_protocol.json
+
+# ── LOCKED COMPARISON TABLE SCORES ──────────────────────────────────────────
+runs/dense_mot_cam1/per_method_metrics/full_aic_reid_frozen.json
+runs/dense_mot_cam1/per_method_metrics/full_aic_reid_frozen.txt
+runs/dense_mot_cam1/per_method_metrics/bot_sort_style_online_baseline.json
+runs/dense_mot_cam1/per_method_metrics/bot_sort_style_online_baseline.txt
+runs/dense_mot_cam1/per_method_metrics/bytetrack_only_baseline_reid_off.json
+runs/dense_mot_cam1/per_method_metrics/bytetrack_only_baseline_reid_off.txt
+runs/dense_mot_cam1/per_method_metrics/aic_reid_no_audit_guided_offline_repair.json
+runs/dense_mot_cam1/per_method_metrics/aic_reid_no_audit_guided_offline_repair.txt
+runs/dense_mot_cam1/dense_mot_report.md
+runs/dense_mot_cam1/dense_mot_summary.csv
+runs/dense_mot_cam1/dense_mot_summary.json
+
+# ── GROUND TRUTH AUDIT ───────────────────────────────────────────────────────
+experiments/audit/cam1_manual_audit_sheet.csv
+experiments/audit/cam1_identity_map_template.csv
+experiments/dense_mot_cam1/dense_gt.csv
+
+# ── ABLATION REPORT (used in report table) ──────────────────────────────────
+runs/ablations/cam1_ablation_20260428_225623/ablation_report.md
+runs/ablations/cam1_ablation_20260428_225623/ablation_summary.csv
+runs/ablations/cam1_ablation_20260428_225623/ablation_summary.json
+runs/ablations/cam1_ablation_20260428_225623/commands_run.sh
+
+# ── DIAGNOSTIC EVIDENCE ─────────────────────────────────────────────────────
+runs/diagnostics/cam1_missing_persons_90_150_trace.csv
+runs/diagnostics/fullcam1_zero_regression_278_rows.csv
+runs/diagnostics/reid_ambiguity_root_cause_gt7_gt10_gt11.csv
+runs/diagnostics/tracker_continuity_recovery_debug.csv
+
+# ── RETEST RESULTS ───────────────────────────────────────────────────────────
+runs/retest/cam1_retest_report.md
+runs/retest/cam1_retest_report.json
+
+# ── DEMO/RESULT VIDEOS ──────────────────────────────────────────────────────
+runs/kpi_batch/retail-shop_CAM1_vis.mp4
+runs/kpi_batch/retail-shop_FULL_CAM1_vis.mp4
+runs/kpi_batch/retail-shop_Demo_Video_vis.mp4
+runs/kpi_batch/retail-shop_2_2_crop_vis.mp4
+runs/cross_cam/cross_cam1_vis.mp4
+runs/cross_cam/cross_cam2_vis.mp4
+
+# ── PER-PERSON TRACKING VIDEOS ──────────────────────────────────────────────
+runs/Per_Person/person_01_1_2_crop_vis.mp4
+runs/Per_Person/person_01_1_3_crop_vis.mp4
+runs/Per_Person/person_02_2_1_crop_vis.mp4
+runs/Per_Person/person_02_2_2_crop_vis.mp4
+runs/Per_Person/person_02_2_3_crop_vis.mp4
+
+# ── CROSS-CAM RESULT DATA ────────────────────────────────────────────────────
+runs/cross_cam/cross_cam1_tracks.csv
+runs/cross_cam/cross_cam2_tracks.csv
+runs/cross_cam/cross_camera_matches.csv
+runs/cross_cam/cross_camera_pair_scores.csv
+runs/cross_cam/cross_camera_tracks_combined.csv
+
+# ── DEMO SLIDES ──────────────────────────────────────────────────────────────
+outputs/fyp_demo_slides/output.pptx
+
+# ── REPORT GRAPHS ────────────────────────────────────────────────────────────
+report_assets/graphs/cam1_ablation_identity_quality.png
+report_assets/graphs/cam1_gt_coverage_bar.png
+report_assets/graphs/cam1_id_row_distribution.png
+report_assets/graphs/cam1_identity_timeline.png
+report_assets/graphs/cam1_retest_coverage.png
+report_assets/graphs/cross_camera_match_types.png
+report_assets/graphs/dense_mot_cam1_metrics_comparison.png
+report_assets/graphs/fullcam1_canonical_id_rows.png
+report_assets/graphs/fullcam1_identity_timeline.png
+report_assets/graphs/per_person_overhead_identity_persistence.png
+report_assets/graphs/positive_vs_zero_gid_distribution.png
+report_assets/graphs/preprocessing_bad_frame_percentage.png
+report_assets/graphs/preprocessing_summary_table.png
+report_assets/graphs/reentry_decision_breakdown.png
+report_assets/graphs/reid_training_rank_map.png
+report_assets/graphs/yolo_training_metrics.png
+
+# ── REPORT SCREENSHOTS (fig_ only, not r_fig_) ──────────────────────────────
+report_assets/screenshots/fig_cam1_annotated_15s.png
+report_assets/screenshots/fig_cam1_annotated_30s.png
+report_assets/screenshots/fig_cam1_annotated_5s.png
+report_assets/screenshots/fig_cam1_annotated_60s.png
+report_assets/screenshots/fig_cam1_annotated_90s.png
+report_assets/screenshots/fig_cam1_frame_30s.png
+report_assets/screenshots/fig_cam1_frame_60s.png
+report_assets/screenshots/fig_cross_cam1_annotated.png
+report_assets/screenshots/fig_cross_cam1_frame.png
+report_assets/screenshots/fig_cross_cam2_frame.png
+report_assets/screenshots/fig_cross_camera_setup.png
+report_assets/screenshots/fig_demo_video_frame.png
+report_assets/screenshots/fig_fullcam1_frame_200s.png
+report_assets/screenshots/fig_fullcam1_frame_60s.png
+report_assets/screenshots/fig_motivation_raw_vs_annotated.png
+report_assets/screenshots/fig_overhead_crop_annotated.png
+report_assets/screenshots/fig_viewpoint_comparison.png
+
+# ── CORE SOURCE CODE ─────────────────────────────────────────────────────────
+src/__init__.py
+src/pipeline/run_stream.py
+src/reid/cam1_reference_anchor.py
+src/reid/extractor.py
+src/reid/gallery.py
+src/reid/matching.py
+src/reid/reentry_linker.py
+src/reid/reid_manager.py
+src/reid/track_linker.py
+src/trackers/bot_sort.py
+src/trackers/byte_tracker.py
+src/trackers/id_bank.py
+src/analytics
+src/detectors
+src/preprocessing
+src/privacy
+src/server
+src/storage
+src/zones
+
+# ── CONFIGS ──────────────────────────────────────────────────────────────────
+configs/app/reid.yaml
+configs/app/tracker.yaml
+configs/cameras/kpi_cross_cam.yaml
+configs/cameras/kpi_people_cam1.yaml
+configs/cameras/kpi_retailshop_cam1.yaml
+configs/cameras/kpi_retailshop_cam1_hot.yaml
+configs/cameras/kpi_retailshop_cam2.yaml
+configs/cameras/kpi_retailshop_full_cam1_cam1.yaml
+configs/cameras/kpi_retailshop_full_cam1_hot.yaml
+configs/cameras/retail_cam1.yaml
+configs/cameras/retail_cam2.yaml
+configs/training/yolo_cam1_person.yaml
+configs/zones/zones_cam1.yaml
+configs/zones/zones_cam1_hot.yaml
+configs/zones/zones_cam2.yaml
+
+# ── MODELS ───────────────────────────────────────────────────────────────────
+models/osnet_cam1.pth
+models/yolo_cam1_person.pt
+models/yolov8m.pt
+
+# ── KEY SCRIPTS ──────────────────────────────────────────────────────────────
+scripts/run_batch.py
+scripts/run_demo.py
+scripts/run_demo.sh
+scripts/run_cross_cam.py
+scripts/run_ablation_study.py
+scripts/run_online_tracking.py
+scripts/setup_env.sh
+scripts/evaluate_dense_mot_metrics.py
+scripts/run_dense_mot_evaluation.py
+scripts/diagnose_ids.py
+scripts/diagnose_reid_ambiguity_gt7_gt10_gt11.py
+scripts/trace_missing_persons_90_150.py
+scripts/compare_surgical_regression.py
+
+# ── RAW INPUT VIDEOS ─────────────────────────────────────────────────────────
+data/raw/retail-shop/CAM1.mp4
+data/raw/retail-shop/FULL_CAM1.mp4
+data/raw/retail-shop/demo_Video.mp4
+data/raw/retail-shop/2_1_crop.mp4
+data/raw/retail-shop/2_2_crop.mp4
+data/raw/cross_cam/cross_cam1.mp4
+data/raw/cross_cam/cross_cam2.mp4
+data/raw/person_01/1_2_crop.mp4
+data/raw/person_01/1_3_crop.mp4
+data/raw/person_02/2_1_crop.mp4
+data/raw/person_02/2_2_crop.mp4
+data/raw/person_02/2_3_crop.mp4
+
+# ── TRAINING DATASETS ────────────────────────────────────────────────────────
+data/datasets/market1501/bounding_box_train
+data/datasets/market1501/bounding_box_test
+data/datasets/market1501/query
+data/datasets/market1501/cam1_reid_build_meta.json
+data/datasets/yolo_cam1_person/images
+data/datasets/yolo_cam1_person/labels
+
+# ── REQUIREMENTS / ENV ───────────────────────────────────────────────────────
+requirements.txt
+README.md
+deep-person-reid
+
+# ── DOCS ─────────────────────────────────────────────────────────────────────
+docs/submission_checklist.md
+docs/demo_rehearsal_checklist.md
+docs/demo_video_script.md
+docs/demo_video_one_take_guide.md
+docs/final_report.md
+
+# ── EVIDENCE / REPORT SUPPORT ────────────────────────────────────────────────
+report_assets/evidence_inventory.md
+experiments/EXPERIMENT_LOG_reid-next-coverage.md
+runs/final_report_alignment_audit.md

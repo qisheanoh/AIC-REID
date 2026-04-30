@@ -1,0 +1,25 @@
+Dense CAM1 MOT Evaluation
+tracks_csv=/Users/ohqishean/AIC-REID/runs/baselines/cam1_bytetrack_only_20260428_223244/retail-shop_CAM1_tracks.csv
+gt_csv=/Users/ohqishean/AIC-REID/experiments/dense_mot_cam1/dense_gt.csv
+frames_evaluated=300
+gt_boxes=1110
+pred_boxes=971
+ignored_predictions_suppressed=0
+ignore_iou_threshold=0.500
+matched_boxes=87
+FP=884
+FN=1023
+IDSW=1
+MOTA=-0.7189189189189189
+IDP=None
+IDR=None
+IDF1=None
+HOTA=None (not computed)
+mostly_tracked=1
+mostly_lost=28
+detection_precision=0.089598
+detection_recall=0.078378
+mean_iou=0.583160
+notes:
+- IDP/IDR/IDF1 not computed from a trusted library because motmetrics is unavailable.
+- HOTA not computed; requires TrackEval or an equivalent validated implementation.

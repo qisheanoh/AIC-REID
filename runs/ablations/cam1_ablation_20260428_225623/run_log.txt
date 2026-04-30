@@ -1,0 +1,326 @@
+Ablation run root: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623
+Audit CSV: /Users/ohqishean/AIC-REID/experiments/audit/cam1_manual_audit_sheet.csv
+Start: 2026-04-28T22:56:23.909641
+
+
+========================================================================================
+RUN no_offline_reentry_linking (CAM1)
+/Users/ohqishean/AIC-REID/.venv/bin/python scripts/run_batch.py --match =CAM1 --no-render --out_dir /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_offline_reentry_linking --disable_reentry_linking
+========================================================================================
+/Users/ohqishean/AIC-REID/.venv/lib/python3.14/site-packages/torchreid/reid/metrics/rank.py:11: UserWarning: Cython evaluation (very fast so highly recommended) is unavailable, now use python evaluation.
+  warnings.warn(
+[INFO] Processing 1 videos...
+[INFO] Detector weights: /Users/ohqishean/AIC-REID/models/yolo_cam1_person.pt
+[INFO] ReID weights: /Users/ohqishean/AIC-REID/models/osnet_cam1.pth
+[INFO] Pose weights: disabled (fallback to ratio body parts)
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+
+======================================
+[INFO] Processing Batch: retail-shop
+======================================
+
+[INFO] Ablation flag: --disable_reentry_linking
+[INFO] Running CAM1.mp4
+[INFO] -> CSV : /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_offline_reentry_linking/retail-shop_CAM1_tracks.csv
+[INFO] -> VIDEO: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_offline_reentry_linking/retail-shop_CAM1_vis.mp4
+[PRE]  CAM1.mp4  2560x1944  12.00fps  1800f  150.0s  bad=0.0%
+[OK] Saved tracks CSV -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_offline_reentry_linking/retail-shop_CAM1_tracks.csv
+[INFO] Bad frames detected: 0
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] ID stitch merged=14 across total_ids=23 dedup_rows=6
+[INFO] Re-entry link skipped (--disable_reentry_linking).
+[INFO] Audit smooth {'applied': True, 'remap_count': 1, 'segment_remap_count': 0, 'anchor_segment_remap_count': 8, 'anchor_row_updates': 46, 'remap': {4: 13}, 'dedup_rows': 0}
+[INFO] Dominant-ID lock {'applied': False, 'reason': 'no_switch_rows', 'changed_rows': 0}
+[INFO] Drop unsupported IDs {'applied': True, 'supported_ids': [1, 2, 3, 4, 11, 13, 23], 'dropped_rows': 12}
+[INFO] Overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] Same-frame duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] ID compact total_ids=7 max_id=7
+[INFO] Enforce target IDs {'applied': True, 'changed_rows': 418, 'changed_segments': 40, 'dedup_rows': 0, 'targets': {'6': 6, '11': 8, '8': 9, '5': 2, '10': 10}}
+[INFO] Promote pred=0 to target {'applied': True, 'changed_rows': 35, 'skipped_dup': 121, 'skipped_iou': 15, 'dedup_rows': 0, 'targets': {'11': 8, '6': 6, '10': 10, '2': 2}}
+[INFO] Pair split (5 vs 9) total_changed=0 rounds=[{'applied': False, 'reason': 'no_changes', 'samples_a': 39, 'samples_b': 109, 'changed_rows': 0}]
+[INFO] Pair split (2 vs 5) total_changed=0 rounds=[{'applied': False, 'reason': 'insufficient_clean_samples', 'samples_a': 989, 'samples_b': 3, 'changed_rows': 0}]
+[INFO] Promote GT8 pred=0 to target (post-split) {'applied': True, 'changed_rows': 13, 'skipped_dup': 10, 'skipped_iou': 0, 'dedup_rows': 0, 'targets': {'8': 9}}
+[INFO] Render skipped (--no-render).
+[INFO] Done.
+
+========================================================================================
+RUN no_tracklet_stitching (CAM1)
+/Users/ohqishean/AIC-REID/.venv/bin/python scripts/run_batch.py --match =CAM1 --no-render --out_dir /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_tracklet_stitching --disable_tracklet_stitching
+========================================================================================
+/Users/ohqishean/AIC-REID/.venv/lib/python3.14/site-packages/torchreid/reid/metrics/rank.py:11: UserWarning: Cython evaluation (very fast so highly recommended) is unavailable, now use python evaluation.
+  warnings.warn(
+[INFO] Processing 1 videos...
+[INFO] Detector weights: /Users/ohqishean/AIC-REID/models/yolo_cam1_person.pt
+[INFO] ReID weights: /Users/ohqishean/AIC-REID/models/osnet_cam1.pth
+[INFO] Pose weights: disabled (fallback to ratio body parts)
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+
+======================================
+[INFO] Processing Batch: retail-shop
+======================================
+
+[INFO] Ablation flag: --disable_tracklet_stitching
+[INFO] Running CAM1.mp4
+[INFO] -> CSV : /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_tracklet_stitching/retail-shop_CAM1_tracks.csv
+[INFO] -> VIDEO: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_tracklet_stitching/retail-shop_CAM1_vis.mp4
+[PRE]  CAM1.mp4  2560x1944  12.00fps  1800f  150.0s  bad=0.0%
+[OK] Saved tracks CSV -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_tracklet_stitching/retail-shop_CAM1_tracks.csv
+[INFO] Bad frames detected: 0
+[INFO] ID stitch skipped (--disable_tracklet_stitching).
+[INFO] Re-entry link {'applied': True, 'stats': {'tracklets_total': 44, 'reentry_attempts': 40, 'accepted_reuses': 14, 'accepted_same_source_bias': 0, 'accepted_same_source_stitch_trust': 0, 'accepted_single_candidate': 0, 'same_source_candidate_seen': 18, 'blocked_cross_source_by_same_source': 0, 'rejected_weak': 10, 'rejected_ambiguous': 16, 'rejected_conflict': 0, 'new_ids_created': 30, 'group_merged_gid_pairs': 3, 'overlap_handoff_merged_gid_pairs': 3, 'overlap_windows_count': 5, 'overlap_anti_switch_locks': 0, 'local_consistency_reassignments': 0, 'dedup_changed_rows': 0}, 'debug_dir': '/Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_tracklet_stitching/reentry_debug/retail-shop_CAM1'}
+[INFO] Audit smooth {'applied': True, 'remap_count': 2, 'segment_remap_count': 1, 'anchor_segment_remap_count': 9, 'anchor_row_updates': 50, 'remap': {27: 42, 49: 30}, 'dedup_rows': 0}
+[INFO] Dominant-ID lock {'applied': False, 'reason': 'no_switch_rows', 'changed_rows': 0}
+[INFO] Drop unsupported IDs {'applied': True, 'supported_ids': [24, 25, 26, 27, 28, 29, 37, 39, 42, 49], 'dropped_rows': 563}
+[INFO] Overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] Same-frame duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] ID compact total_ids=8 max_id=8
+[INFO] Enforce target IDs {'applied': True, 'changed_rows': 238, 'changed_segments': 40, 'dedup_rows': 0, 'targets': {'6': 6, '11': 8, '8': 9, '5': 2, '10': 10}}
+[INFO] Promote pred=0 to target {'applied': True, 'changed_rows': 38, 'skipped_dup': 119, 'skipped_iou': 14, 'dedup_rows': 0, 'targets': {'11': 8, '6': 6, '10': 10, '2': 2}}
+[INFO] Pair split (5 vs 9) total_changed=0 rounds=[{'applied': False, 'reason': 'no_changes', 'samples_a': 31, 'samples_b': 102, 'changed_rows': 0}]
+[INFO] Pair split (2 vs 5) total_changed=0 rounds=[{'applied': False, 'reason': 'insufficient_clean_samples', 'samples_a': 995, 'samples_b': 0, 'changed_rows': 0}]
+[INFO] Promote GT8 pred=0 to target (post-split) {'applied': True, 'changed_rows': 13, 'skipped_dup': 10, 'skipped_iou': 0, 'dedup_rows': 0, 'targets': {'8': 9}}
+[INFO] Render skipped (--no-render).
+[INFO] Done.
+
+========================================================================================
+RUN osnet_only_no_attire_shape (CAM1)
+/Users/ohqishean/AIC-REID/.venv/bin/python scripts/run_batch.py --match =CAM1 --no-render --out_dir /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/osnet_only_no_attire_shape --osnet_only
+========================================================================================
+/Users/ohqishean/AIC-REID/.venv/lib/python3.14/site-packages/torchreid/reid/metrics/rank.py:11: UserWarning: Cython evaluation (very fast so highly recommended) is unavailable, now use python evaluation.
+  warnings.warn(
+[INFO] Processing 1 videos...
+[INFO] Detector weights: /Users/ohqishean/AIC-REID/models/yolo_cam1_person.pt
+[INFO] ReID weights: /Users/ohqishean/AIC-REID/models/osnet_cam1.pth
+[INFO] Pose weights: disabled (fallback to ratio body parts)
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+
+======================================
+[INFO] Processing Batch: retail-shop
+======================================
+
+[INFO] Ablation flag: --osnet_only
+[INFO] Running CAM1.mp4
+[INFO] -> CSV : /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/osnet_only_no_attire_shape/retail-shop_CAM1_tracks.csv
+[INFO] -> VIDEO: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/osnet_only_no_attire_shape/retail-shop_CAM1_vis.mp4
+[PRE]  CAM1.mp4  2560x1944  12.00fps  1800f  150.0s  bad=0.0%
+[OK] Saved tracks CSV -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/osnet_only_no_attire_shape/retail-shop_CAM1_tracks.csv
+[INFO] Bad frames detected: 0
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] ID stitch merged=16 across total_ids=23 dedup_rows=7
+[INFO] Re-entry link {'applied': True, 'stats': {'tracklets_total': 33, 'reentry_attempts': 30, 'accepted_reuses': 5, 'accepted_same_source_bias': 0, 'accepted_same_source_stitch_trust': 0, 'accepted_single_candidate': 0, 'same_source_candidate_seen': 25, 'blocked_cross_source_by_same_source': 0, 'rejected_weak': 15, 'rejected_ambiguous': 10, 'rejected_conflict': 0, 'new_ids_created': 28, 'group_merged_gid_pairs': 3, 'overlap_handoff_merged_gid_pairs': 3, 'overlap_windows_count': 5, 'overlap_anti_switch_locks': 0, 'local_consistency_reassignments': 2, 'dedup_changed_rows': 0}, 'debug_dir': '/Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/osnet_only_no_attire_shape/reentry_debug/retail-shop_CAM1'}
+[INFO] Audit smooth {'applied': True, 'remap_count': 0, 'segment_remap_count': 2, 'anchor_segment_remap_count': 11, 'anchor_row_updates': 9, 'remap': {}, 'dedup_rows': 0}
+[INFO] Dominant-ID lock {'applied': False, 'reason': 'no_switch_rows', 'changed_rows': 0}
+[INFO] Drop unsupported IDs {'applied': True, 'supported_ids': [24, 25, 26, 28, 31, 39, 43], 'dropped_rows': 62}
+[INFO] Overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] Same-frame duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] ID compact total_ids=7 max_id=7
+[INFO] Enforce target IDs {'applied': True, 'changed_rows': 873, 'changed_segments': 13, 'dedup_rows': 0, 'targets': {'6': 6, '11': 8, '8': 9, '5': 2, '10': 10}}
+[INFO] Promote pred=0 to target {'applied': True, 'changed_rows': 91, 'skipped_dup': 62, 'skipped_iou': 18, 'dedup_rows': 0, 'targets': {'11': 8, '6': 6, '10': 10, '2': 2}}
+[INFO] Pair split (5 vs 9) total_changed=0 rounds=[{'applied': False, 'reason': 'insufficient_clean_samples', 'samples_a': 0, 'samples_b': 191, 'changed_rows': 0}]
+[INFO] Pair split (2 vs 5) total_changed=0 rounds=[{'applied': False, 'reason': 'insufficient_clean_samples', 'samples_a': 551, 'samples_b': 0, 'changed_rows': 0}]
+[INFO] Promote GT8 pred=0 to target (post-split) {'applied': True, 'changed_rows': 7, 'skipped_dup': 16, 'skipped_iou': 0, 'dedup_rows': 0, 'targets': {'8': 9}}
+[INFO] Render skipped (--no-render).
+[INFO] Done.
+
+========================================================================================
+RUN relaxed_conservative_gate (CAM1)
+/Users/ohqishean/AIC-REID/.venv/bin/python scripts/run_batch.py --match =CAM1 --no-render --out_dir /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/relaxed_conservative_gate --relaxed_identity_gate
+========================================================================================
+/Users/ohqishean/AIC-REID/.venv/lib/python3.14/site-packages/torchreid/reid/metrics/rank.py:11: UserWarning: Cython evaluation (very fast so highly recommended) is unavailable, now use python evaluation.
+  warnings.warn(
+[INFO] Processing 1 videos...
+[INFO] Detector weights: /Users/ohqishean/AIC-REID/models/yolo_cam1_person.pt
+[INFO] ReID weights: /Users/ohqishean/AIC-REID/models/osnet_cam1.pth
+[INFO] Pose weights: disabled (fallback to ratio body parts)
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+
+======================================
+[INFO] Processing Batch: retail-shop
+======================================
+
+[INFO] Ablation flag: --relaxed_identity_gate
+[INFO] Running CAM1.mp4
+[INFO] -> CSV : /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/relaxed_conservative_gate/retail-shop_CAM1_tracks.csv
+[INFO] -> VIDEO: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/relaxed_conservative_gate/retail-shop_CAM1_vis.mp4
+[PRE]  CAM1.mp4  2560x1944  12.00fps  1800f  150.0s  bad=0.0%
+[OK] Saved tracks CSV -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/relaxed_conservative_gate/retail-shop_CAM1_tracks.csv
+[INFO] Bad frames detected: 0
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] ID stitch merged=10 across total_ids=20 dedup_rows=4
+[INFO] Re-entry link {'applied': True, 'stats': {'tracklets_total': 36, 'reentry_attempts': 32, 'accepted_reuses': 8, 'accepted_same_source_bias': 0, 'accepted_same_source_stitch_trust': 0, 'accepted_single_candidate': 0, 'same_source_candidate_seen': 24, 'blocked_cross_source_by_same_source': 0, 'rejected_weak': 12, 'rejected_ambiguous': 11, 'rejected_conflict': 1, 'new_ids_created': 28, 'group_merged_gid_pairs': 4, 'overlap_handoff_merged_gid_pairs': 2, 'overlap_windows_count': 5, 'overlap_anti_switch_locks': 0, 'local_consistency_reassignments': 2, 'dedup_changed_rows': 0}, 'debug_dir': '/Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/relaxed_conservative_gate/reentry_debug/retail-shop_CAM1'}
+[INFO] Audit smooth {'applied': True, 'remap_count': 1, 'segment_remap_count': 2, 'anchor_segment_remap_count': 11, 'anchor_row_updates': 178, 'remap': {46: 29}, 'dedup_rows': 0}
+[INFO] Dominant-ID lock {'applied': False, 'reason': 'no_switch_rows', 'changed_rows': 0}
+[INFO] Drop unsupported IDs {'applied': True, 'supported_ids': [21, 22, 23, 24, 25, 26, 29, 40, 46], 'dropped_rows': 1089}
+[INFO] Overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] Same-frame duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] ID compact total_ids=8 max_id=8
+[INFO] Enforce target IDs {'applied': True, 'changed_rows': 356, 'changed_segments': 43, 'dedup_rows': 0, 'targets': {'6': 6, '11': 8, '8': 9, '5': 2, '10': 10}}
+[INFO] Promote pred=0 to target {'applied': True, 'changed_rows': 18, 'skipped_dup': 117, 'skipped_iou': 36, 'dedup_rows': 0, 'targets': {'11': 8, '6': 6, '10': 10, '2': 2}}
+[INFO] Pair split (5 vs 9) total_changed=10 rounds=[{'applied': True, 'changed_rows': 10, 'changed_a_to_b': 10, 'changed_b_to_a': 0, 'samples_a': 155, 'samples_b': 79, 'dedup_rows': 0, 'pair': [5, 9]}, {'applied': False, 'reason': 'no_changes', 'samples_a': 145, 'samples_b': 89, 'changed_rows': 0}]
+[INFO] Pair split (2 vs 5) total_changed=9 rounds=[{'applied': True, 'changed_rows': 9, 'changed_a_to_b': 9, 'changed_b_to_a': 0, 'samples_a': 1176, 'samples_b': 42, 'dedup_rows': 0, 'pair': [2, 5]}, {'applied': False, 'reason': 'no_changes', 'samples_a': 1167, 'samples_b': 51, 'changed_rows': 0}]
+[INFO] Promote GT8 pred=0 to target (post-split) {'applied': True, 'changed_rows': 14, 'skipped_dup': 9, 'skipped_iou': 0, 'dedup_rows': 0, 'targets': {'8': 9}}
+[INFO] Render skipped (--no-render).
+[INFO] Done.
+
+========================================================================================
+RUN no_cam1_anchor_alignment (FULL_CAM1)
+FULL_CAM1_CAM1_ANCHOR=off FULL_CAM1_FORCE_CUSTOM8_IDS=0 /Users/ohqishean/AIC-REID/.venv/bin/python scripts/run_batch.py --match =FULL_CAM1 --no-render --out_dir /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment
+========================================================================================
+/Users/ohqishean/AIC-REID/.venv/lib/python3.14/site-packages/torchreid/reid/metrics/rank.py:11: UserWarning: Cython evaluation (very fast so highly recommended) is unavailable, now use python evaluation.
+  warnings.warn(
+[INFO] Processing 1 videos...
+[INFO] Detector weights: /Users/ohqishean/AIC-REID/models/yolo_cam1_person.pt
+[INFO] ReID weights: /Users/ohqishean/AIC-REID/models/osnet_cam1.pth
+[INFO] Pose weights: disabled (fallback to ratio body parts)
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+
+======================================
+[INFO] Processing Batch: retail-shop
+======================================
+
+[INFO] Running FULL_CAM1.mp4
+[INFO] -> CSV : /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/retail-shop_FULL_CAM1_tracks.csv
+[INFO] -> VIDEO: /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/retail-shop_FULL_CAM1_vis.mp4
+[PRE]  FULL_CAM1.mp4  2560x1944  12.16fps  3616f  297.3s  bad=3.98%
+[OK] Saved tracks CSV -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/retail-shop_FULL_CAM1_tracks.csv
+[INFO] Bad frames detected: 144
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] ID stitch merged=21 across total_ids=76 dedup_rows=0
+[INFO] Re-entry link {'applied': True, 'stats': {'tracklets_total': 145, 'reentry_attempts': 140, 'accepted_reuses': 49, 'accepted_same_source_bias': 0, 'accepted_same_source_stitch_trust': 0, 'accepted_single_candidate': 0, 'same_source_candidate_seen': 90, 'blocked_cross_source_by_same_source': 0, 'rejected_weak': 5, 'rejected_ambiguous': 83, 'rejected_conflict': 3, 'new_ids_created': 96, 'group_merged_gid_pairs': 0, 'overlap_handoff_merged_gid_pairs': 0, 'overlap_windows_count': 6, 'overlap_anti_switch_locks': 0, 'local_consistency_reassignments': 42, 'dedup_changed_rows': 0}, 'debug_dir': '/Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/reentry_debug/retail-shop_FULL_CAM1'}
+[INFO] Overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] Same-frame duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] ID compact total_ids=35 max_id=35
+[INFO] FULL_CAM1 first2min audit before {'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 275, 'audit_row_coverage_positive_id': 0.6642512077294686, 'gt_to_pred_purity_macro': 0.8324435483870968, 'pred_to_gt_purity_macro': 0.8970965197673272, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 16, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8, '4': 1.0, '5': 0.375, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 5: 1.0, 6: 1.0, 7: 1.0, 9: 0.9777777777777777, 10: 1.0, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}}
+[INFO] FULL_CAM1 stability thresholds min_rows=30 min_span=32 anchor_min_rows=30 anchor_min_span=32
+[INFO] FULL_CAM1 ref-align pass1 skipped (reference CAM1 outputs missing).
+[INFO] FULL_CAM1 semantic relabel pass1 skipped (reference CAM1 outputs missing).
+[INFO] FULL_CAM1 overlap smooth pass1 {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-overlap-smooth-pass1) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 duplicate suppress pass1 {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 pair split rounds [{'pair': [1, 6], 'rounds': 1, 'changed_rows': 0}, {'pair': [1, 9], 'rounds': 1, 'changed_rows': 0}, {'pair': [5, 6], 'rounds': 1, 'changed_rows': 0}, {'pair': [5, 8], 'rounds': 1, 'changed_rows': 0}, {'pair': [8, 9], 'rounds': 1, 'changed_rows': 0}, {'pair': [7, 11], 'rounds': 1, 'changed_rows': 0}]
+[INFO] FULL_CAM1 same-frame uniqueness (after-pair-split-rounds) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] FULL_CAM1 memory-overlap lock {'applied': False, 'reason': 'no_changes', 'proto_ids': 10, 'overlap_frames': 16, 'used_osnet': True, 'osnet_error': '', 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-memory-overlap-lock) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 tiny-fragment suppress {'applied': True, 'removed_ids': 1, 'changed_rows': 20, 'dedup_rows': 0, 'removed_gid_list': [27]}
+[INFO] FULL_CAM1 border-ghost suppress {'applied': True, 'changed_rows': 29, 'removed_runs': 11, 'hard_strip_rows': 2, 'dedup_rows': 0}
+[INFO] FULL_CAM1 static-edge ghost suppress {'applied': True, 'changed_rows': 182, 'removed_ids': [33], 'dedup_rows': 0}
+[INFO] FULL_CAM1 non-person ghost suppress pass1 {'applied': True, 'changed_rows': 88, 'removed_rows_by_gid': 88, 'removed_rows_by_row_rule': 0, 'removed_gids': [8], 'row_reason_counts': {'right_toilet_shelf_ghost': 88}, 'dedup_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-non-person-ghost-pass1) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] FULL_CAM1 seed-profile relabel {'applied': True, 'changed_rows': 3648, 'dedup_rows': 30, 'target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'active_target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'present_target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'missing_target_ids': [], 'unresolved_seed_targets': [], 'seed_counts': {'5': 1, '6': 2, '10': 2, '1': 2, '4': 2, '9': 2, '2': 2, '8': 2, '3': 2, '11': 1}, 'non_target_zeroed': 0, 'used_osnet': True, 'osnet_error': ''}
+[INFO] FULL_CAM1 same-frame uniqueness (after-seed-profile-relabel) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 seed-profile-relabel reverted reason=purity_drop(0.889->0.829) pre_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 274, 'audit_row_coverage_positive_id': 0.6618357487922706, 'gt_to_pred_purity_macro': 0.813826164874552, 'pred_to_gt_purity_macro': 0.889180867441737, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 15, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8, '5': 0.375, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 6: 1.0, 7: 1.0, 9: 0.9777777777777777, 10: 1.0, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}} post_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 273, 'audit_row_coverage_positive_id': 0.6594202898550725, 'gt_to_pred_purity_macro': 0.8659221244705115, 'pred_to_gt_purity_macro': 0.829136400322841, 'gt_people_fragmented_multi_pred_ids': 5, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 10, 'window_max_positive_id': 11, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.99, '3': 0.9363636363636364, '5': 0.625, '6': 1.0, '7': 0.7419354838709677, '8': 1.0, '9': 0.5}, 'pred_purity_detail': {1: 0.5, 2: 0.8389830508474576, 3: 0.5714285714285714, 4: 0.6666666666666666, 5: 1.0, 6: 1.0, 7: 1.0, 9: 1.0, 10: 1.0, 11: 0.7142857142857143}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-seed-profile-relabel-revert) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 post-seed overlap smooth {'applied': False, 'reason': 'no_switch_fragments', 'changed_rows': 0, 'changed_runs': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-post-seed-overlap-smooth) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 post-seed duplicate suppress {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final semantic relabel skipped (reference CAM1 outputs missing).
+[INFO] FULL_CAM1 non-person ghost suppress pass2 {'applied': False, 'reason': 'no_non_person_ghosts', 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-non-person-ghost-pass2) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 audit-template canonical relabel {'applied': True, 'changed_rows': 1900, 'blocked_by_same_frame_conflict': 83, 'whole_gid_remap_count': 2, 'segment_split_count': 11, 'zeroed_rows': 0, 'impure_src_ids': [2, 3, 9, 13, 16], 'dedup_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-audit-template-canonical) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 audit-template-canonical reverted reason=shared_ids_up(5->7) pre_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 274, 'audit_row_coverage_positive_id': 0.6618357487922706, 'gt_to_pred_purity_macro': 0.813826164874552, 'pred_to_gt_purity_macro': 0.889180867441737, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 15, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8, '5': 0.375, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 6: 1.0, 7: 1.0, 9: 0.9777777777777777, 10: 1.0, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}} post_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 274, 'audit_row_coverage_positive_id': 0.6618357487922706, 'gt_to_pred_purity_macro': 0.8065993265993266, 'pred_to_gt_purity_macro': 0.8919231154000061, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 7, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 15, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8727272727272727, '5': 0.375, '6': 0.6666666666666666, '7': 1.0, '8': 0.875, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.9897959183673469, 3: 0.9795918367346939, 4: 1.0, 6: 1.0, 7: 0.96875, 8: 0.8235294117647058, 9: 0.6666666666666666, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-audit-template-canonical-revert) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 audit-target enforce {'applied': True, 'changed_rows': 1107, 'changed_segments': 25, 'dedup_rows': 0, 'targets': {'1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, '11': 11}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-audit-target-enforce) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 audit-target-enforce reverted reason=purity_drop(0.889->0.872) pre_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 274, 'audit_row_coverage_positive_id': 0.6618357487922706, 'gt_to_pred_purity_macro': 0.813826164874552, 'pred_to_gt_purity_macro': 0.889180867441737, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 15, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8, '5': 0.375, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 6: 1.0, 7: 1.0, 9: 0.9777777777777777, 10: 1.0, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}} post_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 274, 'audit_row_coverage_positive_id': 0.6618357487922706, 'gt_to_pred_purity_macro': 0.7480892255892255, 'pred_to_gt_purity_macro': 0.8724489321821504, 'gt_people_fragmented_multi_pred_ids': 7, 'predicted_ids_shared_multi_gt_people': 6, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 13, 'window_max_positive_id': 15, 'gt_purity_detail': {'1': 0.5, '10': 1.0, '2': 0.99, '3': 0.7636363636363637, '5': 0.375, '6': 0.6666666666666666, '7': 1.0, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 0.9473684210526315, 2: 0.8389830508474576, 3: 0.7142857142857143, 4: 0.5, 5: 1.0, 6: 1.0, 7: 0.96875, 8: 1.0, 9: 1.0, 10: 1.0, 12: 0.5, 15: 1.0}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-audit-target-enforce-revert) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 abrupt-jump split {'applied': True, 'split_ids': 2, 'new_ids_created': 2, 'changed_rows': 176, 'dedup_rows': 0, 'appearance_enabled': True, 'shape_split_events': 0, 'appearance_split_events': 0, 'long_gap_split_events': 1}
+[INFO] FULL_CAM1 same-frame uniqueness (after-abrupt-jump-split) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 canonical-id-space enforce {'applied': True, 'changed_rows': 2358, 'mapped_noncanonical_to_missing_canonical': {'22': 8}, 'removed_noncanonical_ids': [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 30, 31, 32, 34, 35, 36, 37], 'stable_noncanonical_ids': [22, 19, 26, 21, 37, 18, 31, 35, 32, 28, 29, 24, 20, 14, 23, 30, 25, 15, 13, 16], 'missing_canonical_ids': [8], 'dedup_rows': 0, 'summary': {'applied': True, 'rows_total': 11374, 'positive_rows': 3863, 'unique_positive_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'stable_positive_ids': [1, 2, 3, 5, 6, 7, 8, 9, 10], 'stable_positive_id_count': 9, 'max_positive_id': 11, 'same_frame_duplicate_positive_ids': 0, 'non_canonical_positive_ids': []}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-canonical-id-space-enforce) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+Model: osnet_x1_0
+- params: 2,193,616
+- flops: 978,878,352
+Successfully loaded pretrained weights from "/Users/ohqishean/AIC-REID/models/osnet_cam1.pth"
+** The following layers are discarded due to unmatched keys or layer size: ['classifier.weight', 'classifier.bias']
+[INFO] FULL_CAM1 final seed-profile recovery {'applied': True, 'changed_rows': 1774, 'dedup_rows': 30, 'target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'active_target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'present_target_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'missing_target_ids': [], 'unresolved_seed_targets': [], 'seed_counts': {'5': 1, '6': 2, '10': 2, '1': 2, '4': 2, '9': 2, '2': 1, '8': 2, '3': 2, '11': 1}, 'non_target_zeroed': 0, 'used_osnet': True, 'osnet_error': ''}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-seed-profile-recovery) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final-seed-profile-recovery reverted reason=purity_drop(0.927->0.882) pre_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 259, 'audit_row_coverage_positive_id': 0.6256038647342995, 'gt_to_pred_purity_macro': 0.9288379129161463, 'pred_to_gt_purity_macro': 0.926863354037267, 'gt_people_fragmented_multi_pred_ids': 3, 'predicted_ids_shared_multi_gt_people': 2, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 10, 'window_max_positive_id': 11, 'gt_purity_detail': {'1': 1.0, '2': 1.0, '3': 0.822429906542056, '5': 1.0, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 6: 1.0, 7: 1.0, 9: 1.0, 10: 1.0}} post_audit={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 258, 'audit_row_coverage_positive_id': 0.6231884057971014, 'gt_to_pred_purity_macro': 0.8838811205836433, 'pred_to_gt_purity_macro': 0.8818929675094059, 'gt_people_fragmented_multi_pred_ids': 4, 'predicted_ids_shared_multi_gt_people': 4, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 10, 'window_max_positive_id': 11, 'gt_purity_detail': {'1': 1.0, '2': 0.5773195876288659, '3': 0.9345794392523364, '5': 1.0, '6': 1.0, '7': 0.7419354838709677, '8': 0.9333333333333333}, 'pred_purity_detail': {1: 0.9318181818181818, 2: 0.7671232876712328, 3: 0.5714285714285714, 4: 0.6666666666666666, 5: 1.0, 6: 1.0, 7: 1.0, 9: 1.0, 10: 1.0}}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-seed-profile-recovery-revert) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [1, 6], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-1-6) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [1, 9], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-1-9) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [5, 6], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-5-6) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [5, 4], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-5-4) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [5, 8], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-5-8) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [6, 4], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-6-4) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 final pair split {'pair': [8, 9], 'rounds': 1, 'changed_rows': 0}
+[INFO] FULL_CAM1 same-frame uniqueness (after-final-pair-split-8-9) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 canonicalize first-appearance {'applied': True, 'stable_count': 9, 'unstable_count': 2, 'stable_max_id': 9, 'max_id': 11, 'first_appearance_order': [1, 2, 3, 4, 5, 6, 7, 8, 9], 'dedup_rows': 0, 'drop_unstable': False}
+[INFO] FULL_CAM1 same-frame uniqueness (after-canonicalize-first-appearance) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 identity BEFORE anchor stable=9 stable_canonical=9 rows_on_canonical=3863 rows_off_canonical=0 coverage=1.000 same_frame_dup=0
+[INFO] FULL_CAM1 cam1-anchor disabled by FULL_CAM1_CAM1_ANCHOR env.
+[INFO] FULL_CAM1 identity AFTER anchor stable=9 stable_canonical=9 rows_on_canonical=3863 rows_off_canonical=0 coverage=1.000 same_frame_dup=0
+[INFO] FULL_CAM1 missing canonicals after anchor [10, 11]
+[INFO] FULL_CAM1 fragment-merge skipped while missing canonicals exist (missing=[10, 11], FULL_CAM1_MERGE_SURVIVOR_WHEN_MISSING=0)
+[INFO] FULL_CAM1 fragment-merge (missing-only) canonicals=[10, 11] merges=0 fragments=9 targets=0 dedup_rows=0
+[INFO] FULL_CAM1 same-frame uniqueness (after-fragment-merge-missing-only) {'applied': False, 'reason': 'no_duplicates', 'changed_rows': 0, 'changed_groups': 0}
+[INFO] FULL_CAM1 same-frame-uniqueness dedup_rows=0
+[INFO] FULL_CAM1 convergence pruned=[] dedup_rows=0 delta={'stable_count': 0, 'stable_canonical_count': 0, 'rows_on_canonical': 0, 'rows_off_canonical': 0, 'same_frame_duplicate_rows': 0} converged_to_11=False
+[INFO] FULL_CAM1 same-frame uniqueness (after-convergence) {'applied': True, 'dedup_rows': 0}
+[INFO] FULL_CAM1 missing canonicals after convergence [10, 11]
+[INFO] FULL_CAM1 continuity-heal applied=False changed_rows=0
+[INFO] FULL_CAM1 anchor-failure diagnostics saved -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/retail-shop_FULL_CAM1_anchor_failure_diagnostics.json
+         canonical=7 status=resolved_stable candidate=None top1=0.000 top2=0.000 margin=0.000 class=insufficient-evidence
+         canonical=9 status=resolved_stable candidate=None top1=0.000 top2=0.000 margin=0.000 class=insufficient-evidence
+         canonical=10 status=resolved_weak candidate=None top1=0.000 top2=0.000 margin=0.000 class=insufficient support
+         canonical=11 status=resolved_weak candidate=None top1=0.000 top2=0.000 margin=0.000 class=insufficient support
+[INFO] FULL_CAM1 identity metrics saved -> /Users/ohqishean/AIC-REID/runs/ablations/cam1_ablation_20260428_225623/no_cam1_anchor_alignment/retail-shop_FULL_CAM1_identity_metrics.json
+[INFO] FULL_CAM1 final identity summary {'applied': True, 'rows_total': 11374, 'positive_rows': 3863, 'unique_positive_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 'stable_positive_ids': [1, 2, 3, 4, 5, 6, 7, 8, 9], 'stable_positive_id_count': 9, 'max_positive_id': 11, 'same_frame_duplicate_positive_ids': 0, 'non_canonical_positive_ids': []}
+[INFO] FULL_CAM1 first2min audit after {'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 259, 'audit_row_coverage_positive_id': 0.6256038647342995, 'gt_to_pred_purity_macro': 0.9288379129161463, 'pred_to_gt_purity_macro': 0.926863354037267, 'gt_people_fragmented_multi_pred_ids': 3, 'predicted_ids_shared_multi_gt_people': 2, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 10, 'window_max_positive_id': 11, 'gt_purity_detail': {'1': 1.0, '2': 1.0, '3': 0.822429906542056, '5': 1.0, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 5: 1.0, 6: 1.0, 7: 1.0, 8: 1.0, 10: 1.0}}
+[INFO] FULL_CAM1 first2min audit before-vs-after before={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 275, 'audit_row_coverage_positive_id': 0.6642512077294686, 'gt_to_pred_purity_macro': 0.8324435483870968, 'pred_to_gt_purity_macro': 0.8970965197673272, 'gt_people_fragmented_multi_pred_ids': 6, 'predicted_ids_shared_multi_gt_people': 5, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 16, 'window_max_positive_id': 16, 'gt_purity_detail': {'1': 1.0, '10': 1.0, '2': 0.97, '3': 0.8, '4': 1.0, '5': 0.375, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375, '9': 0.5}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 4: 1.0, 5: 1.0, 6: 1.0, 7: 1.0, 9: 0.9777777777777777, 10: 1.0, 12: 0.5, 13: 0.6666666666666666, 14: 1.0, 15: 1.0, 16: 1.0}} after={'applied': True, 'audit_rows_total': 414, 'audit_rows_covered_iou': 326, 'audit_row_coverage': 0.7874396135265701, 'audit_rows_covered_positive_id': 259, 'audit_row_coverage_positive_id': 0.6256038647342995, 'gt_to_pred_purity_macro': 0.9288379129161463, 'pred_to_gt_purity_macro': 0.926863354037267, 'gt_people_fragmented_multi_pred_ids': 3, 'predicted_ids_shared_multi_gt_people': 2, 'same_frame_duplicate_positive_ids': 0, 'window_unique_positive_id_count': 10, 'window_max_positive_id': 11, 'gt_purity_detail': {'1': 1.0, '2': 1.0, '3': 0.822429906542056, '5': 1.0, '6': 1.0, '7': 0.7419354838709677, '8': 0.9375}, 'pred_purity_detail': {1: 1.0, 2: 0.8434782608695652, 3: 0.5714285714285714, 5: 1.0, 6: 1.0, 7: 1.0, 8: 1.0, 10: 1.0}}
+[INFO] Render skipped (--no-render).
+[INFO] Done.
+
+Done.

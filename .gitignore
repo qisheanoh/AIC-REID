@@ -1,9 +1,65 @@
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+.Python
+
+# ── Environments ──────────────────────────────────────────────────────────────
 .env
 .venv
-logs/
-runs/
+venv/
+env/
+
+# ── Large binary model weights ────────────────────────────────────────────────
+models/
+
+# ── Raw input videos ──────────────────────────────────────────────────────────
+data/raw/
+
+# ── Training datasets ─────────────────────────────────────────────────────────
+data/datasets/
+
+# ── Database ──────────────────────────────────────────────────────────────────
+*.db
+
+# ── Pre-submission cleanup archive ────────────────────────────────────────────
+archive/
+
+# ── Binary report documents ───────────────────────────────────────────────────
+*.pdf
+*.docx
+*.pptx
+
+# ── Report screenshots (large PNGs, kept in local zip only) ──────────────────
+report_assets/screenshots/
+
+# ── Demo slides and generated outputs ────────────────────────────────────────
+outputs/
+
+# ── Rendered video outputs and runtime logs inside runs/ ─────────────────────
+runs/**/*.mp4
+runs/**/*.avi
+runs/**/*.log
+runs/**/frames/
+runs/**/contact_sheets/
+
+# ── Third-party library (install via requirements.txt / deep-person-reid repo) ─
+deep-person-reid/
+
+# ── Legacy data-processing paths ─────────────────────────────────────────────
 data/interim/
 data/processed/
+logs/
+
+# ── Third-party venv ──────────────────────────────────────────────────────────
 third_party/deep-person-reid/.venv/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+
+# ── IDE / editors ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo

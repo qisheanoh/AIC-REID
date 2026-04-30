@@ -1,0 +1,116 @@
+{
+  "result": {
+    "global": {
+      "rows_total": 7480,
+      "positive_ids": 10,
+      "max_id": 10,
+      "unassigned_rows": 3422,
+      "frames_with_duplicate_positive_gid": 0,
+      "duplicate_id_in_frame_conflicts": 0,
+      "reentry_attempts": 5,
+      "correct_reentry_reuses": 5,
+      "false_reentry_merges": 0,
+      "missed_reentry_merges": 0
+    },
+    "per_person": {
+      "1.0": {
+        "frames_audited": 8,
+        "coverage": 0.625,
+        "switches": 0,
+        "dominant_gid": 7,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 5
+      },
+      "10.0": {
+        "frames_audited": 26,
+        "coverage": 0.9230769230769231,
+        "switches": 0,
+        "dominant_gid": 10,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 24
+      },
+      "11.0": {
+        "frames_audited": 10,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 7,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 10
+      },
+      "2.0": {
+        "frames_audited": 102,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 4,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 102
+      },
+      "3.0": {
+        "frames_audited": 121,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 1,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 121
+      },
+      "4.0": {
+        "frames_audited": 2,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 5,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 2
+      },
+      "5.0": {
+        "frames_audited": 20,
+        "coverage": 1.0,
+        "switches": 2,
+        "dominant_gid": 2,
+        "dominant_ratio": 0.95,
+        "matched_positive_frames": 20
+      },
+      "6.0": {
+        "frames_audited": 33,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 6,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 33
+      },
+      "7.0": {
+        "frames_audited": 135,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 3,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 135
+      },
+      "8.0": {
+        "frames_audited": 23,
+        "coverage": 1.0,
+        "switches": 0,
+        "dominant_gid": 8,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 23
+      },
+      "9.0": {
+        "frames_audited": 4,
+        "coverage": 0.75,
+        "switches": 0,
+        "dominant_gid": 9,
+        "dominant_ratio": 1.0,
+        "matched_positive_frames": 3
+      }
+    }
+  },
+  "thresholds": {
+    "max_positive_ids": 12,
+    "max_switches_per_person": 2,
+    "min_coverage_per_person": 0.8
+  },
+  "pass": false,
+  "failures": [
+    "1.0: coverage 0.625 < 0.800",
+    "9.0: coverage 0.750 < 0.800"
+  ]
+}

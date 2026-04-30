@@ -1,0 +1,19 @@
+{
+  "video": "Demo_Video.mp4",
+  "resolution": [
+    2560,
+    1944
+  ],
+  "fps": 12.0,
+  "frame_count": 370,
+  "duration_s": 30.83,
+  "codec": "h264",
+  "quality": {
+    "total_frames": 370,
+    "bad_frames": 0,
+    "bad_pct": 0.0,
+    "mean_gray_avg": 112.25,
+    "std_gray_avg": 67.52,
+    "reasons": {}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "video": "cross_cam1.mp4",
+  "resolution": [
+    2560,
+    1944
+  ],
+  "fps": 11.8118,
+  "frame_count": 720,
+  "duration_s": 60.96,
+  "codec": "hevc",
+  "quality": {
+    "total_frames": 719,
+    "bad_frames": 8,
+    "bad_pct": 1.11,
+    "mean_gray_avg": 106.02,
+    "std_gray_avg": 53.61,
+    "reasons": {
+      "std_gray": 8
+    }
+  }
+}

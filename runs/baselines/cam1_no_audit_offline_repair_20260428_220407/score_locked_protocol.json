@@ -1,0 +1,94 @@
+{
+  "audit": {
+    "applied": true,
+    "audit_row_coverage": 0.7210743801652892,
+    "audit_row_coverage_positive_id": 0.5082644628099173,
+    "audit_rows_covered_iou": 349,
+    "audit_rows_covered_positive_id": 246,
+    "audit_rows_total": 484,
+    "gt_people_fragmented_multi_pred_ids": 6,
+    "gt_purity_detail": {
+      "10": 0.6,
+      "11": 0.6666666666666666,
+      "2": 1.0,
+      "3": 0.9541284403669725,
+      "4": 1.0,
+      "5": 0.6666666666666666,
+      "6": 0.7407407407407407,
+      "7": 1.0,
+      "8": 0.8888888888888888,
+      "9": 1.0
+    },
+    "gt_to_pred_purity_macro": 0.8517091403329935,
+    "pred_purity_detail": {
+      "1": 1.0,
+      "2": 0.9156626506024096,
+      "3": 0.9523809523809523,
+      "4": 0.5,
+      "6": 1.0,
+      "7": 1.0,
+      "8": 0.5,
+      "9": 1.0,
+      "10": 0.625,
+      "11": 1.0,
+      "12": 1.0
+    },
+    "pred_to_gt_purity_macro": 0.8630039639075783,
+    "predicted_ids_shared_multi_gt_people": 5,
+    "same_frame_duplicate_positive_ids": 0,
+    "window_max_positive_id": 12,
+    "window_unique_positive_id_count": 12
+  },
+  "summary": {
+    "applied": true,
+    "max_positive_id": 12,
+    "non_canonical_positive_ids": [],
+    "positive_rows": 3242,
+    "rows_total": 6194,
+    "same_frame_duplicate_positive_ids": 0,
+    "stable_positive_id_count": 10,
+    "stable_positive_ids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      10,
+      11,
+      12
+    ],
+    "unique_positive_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "table_row": {
+    "coverage": 0.5082644628099173,
+    "fragmentation": 6,
+    "method": "AIC-ReID (no audit-guided offline repair)",
+    "notes": {
+      "audit_rows_covered_positive_id": 246,
+      "audit_rows_total": 484,
+      "predicted_ids_shared_multi_gt_people": 5,
+      "window_max_positive_id": 12,
+      "window_unique_positive_id_count": 12
+    },
+    "positive_ids": 12,
+    "positive_rows": 3242,
+    "purity": 0.8630039639075783,
+    "same_frame_duplicates": 0,
+    "tracks_csv": "/Users/ohqishean/AIC-REID/runs/baselines/cam1_no_audit_offline_repair_20260428_220407/retail-shop_CAM1_tracks.csv"
+  }
+}

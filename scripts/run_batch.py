@@ -100,14 +100,47 @@ def main():
             "runs/diagnostics/tracker_continuity_recovery_debug.csv."
         ),
     )
+    parser.add_argument(
+        "--out_dir",
+        type=Path,
+        default=ROOT / "runs" / "kpi_batch",
+        help="Output root directory for tracks/videos/debug artifacts.",
+    )
+    parser.add_argument(
+        "--disable_reentry_linking",
+        action="store_true",
+        help="Disable offline re-entry linking stage.",
+    )
+    parser.add_argument(
+        "--disable_tracklet_stitching",
+        action="store_true",
+        help="Disable offline tracklet stitching stage.",
+    )
+    parser.add_argument(
+        "--osnet_only",
+        action="store_true",
+        help=(
+            "Disable attire/body-shape fusion in tracker and relax part-based "
+            "offline gates so matching is OSNet-primary."
+        ),
+    )
+    parser.add_argument(
+        "--relaxed_identity_gate",
+        action="store_true",
+        help="Relax conservative identity gates for ablation runs.",
+    )
     parser.set_defaults(render=True)
     args = parser.parse_args()
     use_cam1_recovery: bool = bool(args.cam1_recovery)
+    disable_reentry_linking: bool = bool(args.disable_reentry_linking)
+    disable_tracklet_stitching: bool = bool(args.disable_tracklet_stitching)
+    use_osnet_only: bool = bool(args.osnet_only)
+    use_relaxed_identity_gate: bool = bool(args.relaxed_identity_gate)
 
     match_token = (args.match or "").strip().lower()
 
     raw_root = ROOT / "data" / "raw"
-    out_root = ROOT / "runs" / "kpi_batch"
+    out_root = args.out_dir
     out_root.mkdir(parents=True, exist_ok=True)
 
     folders = ["retail-shop"]
@@ -469,6 +502,14 @@ def main():
         print("\n======================================")
         print(f"[INFO] Processing Batch: {group}")
         print("======================================\n")
+        if disable_tracklet_stitching:
+            print("[INFO] Ablation flag: --disable_tracklet_stitching")
+        if disable_reentry_linking:
+            print("[INFO] Ablation flag: --disable_reentry_linking")
+        if use_osnet_only:
+            print("[INFO] Ablation flag: --osnet_only")
+        if use_relaxed_identity_gate:
+            print("[INFO] Ablation flag: --relaxed_identity_gate")
 
         for v in videos:
             # Explicit pipeline mode — single source of truth for per-clip behavior.
@@ -490,6 +531,37 @@ def main():
 
             apply_recovery = use_cam1_recovery and _stem == "cam1"
             _apply_runtime_profile(full_cam1=is_full_cam1, cam1_recovery=apply_recovery)
+            if use_osnet_only:
+                # Tracker-level appearance fusion ablation: keep OSNet, drop attire/shape terms.
+                tracker.F_ATTIRE = 0.0
+                tracker.F_SHAPE = 0.0
+            if use_relaxed_identity_gate:
+                # Conservative-gate ablation: small relaxation only for this run.
+                tracker.normal_reuse_threshold = max(0.50, float(tracker.normal_reuse_threshold) - 0.10)
+                tracker.overlap_reuse_threshold = max(0.56, float(tracker.overlap_reuse_threshold) - 0.10)
+                tracker.long_gap_reid_threshold = max(0.60, float(tracker.long_gap_reid_threshold) - 0.10)
+                tracker.best_vs_second_margin = max(0.00, float(tracker.best_vs_second_margin) - 0.05)
+                tracker.overlap_best_vs_second_margin = max(
+                    0.00, float(tracker.overlap_best_vs_second_margin) - 0.05
+                )
+                tracker.short_memory_margin = max(0.00, float(tracker.short_memory_margin) - 0.04)
+                tracker.bank_update_min_margin = max(0.00, float(tracker.bank_update_min_margin) - 0.04)
+                if tracker.id_bank is not None:
+                    tracker.id_bank.hard_thresh = max(0.74, float(tracker.id_bank.hard_thresh) - 0.06)
+                    tracker.id_bank.soft_thresh = max(0.68, float(tracker.id_bank.soft_thresh) - 0.06)
+                    tracker.id_bank.margin = max(0.00, float(tracker.id_bank.margin) - 0.05)
+                if hasattr(tracker.tracker, "strong_reid_thresh"):
+                    tracker.tracker.strong_reid_thresh = max(
+                        0.60, float(tracker.tracker.strong_reid_thresh) - 0.10
+                    )
+                if hasattr(tracker.tracker, "long_lost_reid_thresh"):
+                    tracker.tracker.long_lost_reid_thresh = max(
+                        0.64, float(tracker.tracker.long_lost_reid_thresh) - 0.10
+                    )
+                if hasattr(tracker.tracker, "lost_match_iou_thresh"):
+                    tracker.tracker.lost_match_iou_thresh = max(
+                        0.04, float(tracker.tracker.lost_match_iou_thresh) - 0.03
+                    )
 
             # Wire zero-gid diagnostic path for recovery runs.
             tracker._zero_debug_path = (
@@ -534,18 +606,22 @@ def main():
             # For short clips (CAM1 = ~60 s), cap stitch gap at 400 frames (~13 s)
             # to prevent false merges across long absences (e.g. two different
             # people sharing an ID because person A left and B appeared 44 s later).
-            stitch = stitch_track_ids(
-                video_path=v,
-                tracks_csv_path=out_csv,
-                reid_weights_path=reid_weights_path,
-                max_gap_frames=1400 if is_full_cam1 else 400,
-                min_merge_score=0.90 if is_full_cam1 else 0.68,
-            )
-            print(
-                f"[INFO] ID stitch merged={stitch['merged_pairs']} "
-                f"across total_ids={stitch['total_ids']} "
-                f"dedup_rows={stitch.get('dedup_rows', 0)}"
-            )
+            if disable_tracklet_stitching:
+                stitch = {"applied": False, "reason": "disabled_by_cli", "merged_pairs": 0}
+                print("[INFO] ID stitch skipped (--disable_tracklet_stitching).")
+            else:
+                stitch = stitch_track_ids(
+                    video_path=v,
+                    tracks_csv_path=out_csv,
+                    reid_weights_path=reid_weights_path,
+                    max_gap_frames=1400 if is_full_cam1 else 400,
+                    min_merge_score=0.90 if is_full_cam1 else 0.68,
+                )
+                print(
+                    f"[INFO] ID stitch merged={stitch['merged_pairs']} "
+                    f"across total_ids={stitch['total_ids']} "
+                    f"dedup_rows={stitch.get('dedup_rows', 0)}"
+                )
 
             reentry_debug_dir = out_root / "reentry_debug" / stem
             # Previous FULL_CAM1 overrides were so strict (margin=0.16, deep>=0.84)
@@ -689,14 +765,45 @@ def main():
                 spatial_disambig_sec_plausible_factor=0.50,
                 spatial_disambig_min_sec_score=0.68,
             )
-            reentry = link_reentry_offline(
-                video_path=v,
-                tracks_csv_path=out_csv,
-                reid_weights_path=reid_weights_path,
-                debug_dir=reentry_debug_dir,
-                config=reentry_cfg,
-            )
-            print(f"[INFO] Re-entry link {reentry}")
+            if use_osnet_only:
+                # Offline OSNet-primary ablation: remove part/shape gates and scores.
+                reentry_cfg.w_upper_lower = 0.0
+                reentry_cfg.w_part_topk = 0.0
+                reentry_cfg.w_shape_size = 0.0
+                reentry_cfg.min_part_topk_for_reuse = -1.0
+                reentry_cfg.min_part_mean_for_reuse = -1.0
+                reentry_cfg.same_source_min_part_topk = -1.0
+                reentry_cfg.merge_min_part_topk = -1.0
+                reentry_cfg.overlap_handoff_min_part_topk = -1.0
+                reentry_cfg.anti_switch_min_part_topk = -1.0
+                reentry_cfg.single_candidate_min_part_topk = -1.0
+            if use_relaxed_identity_gate:
+                reentry_cfg.strong_reuse_score = max(0.58, float(reentry_cfg.strong_reuse_score) - 0.08)
+                reentry_cfg.strong_reuse_margin = max(0.00, float(reentry_cfg.strong_reuse_margin) - 0.04)
+                reentry_cfg.min_deep_sim_for_reuse = max(0.56, float(reentry_cfg.min_deep_sim_for_reuse) - 0.08)
+                reentry_cfg.min_topk_sim_for_reuse = max(0.54, float(reentry_cfg.min_topk_sim_for_reuse) - 0.08)
+                reentry_cfg.cross_person_ambiguity_margin = max(
+                    0.01, float(reentry_cfg.cross_person_ambiguity_margin) - 0.02
+                )
+                reentry_cfg.same_source_block_margin = max(
+                    0.00, float(reentry_cfg.same_source_block_margin) - 0.03
+                )
+                reentry_cfg.anti_switch_margin = max(0.00, float(reentry_cfg.anti_switch_margin) - 0.05)
+                reentry_cfg.anti_switch_reassign_margin_over_current = max(
+                    0.00, float(reentry_cfg.anti_switch_reassign_margin_over_current) - 0.05
+                )
+            if disable_reentry_linking:
+                reentry = {"applied": False, "reason": "disabled_by_cli", "reentry_attempts": 0}
+                print("[INFO] Re-entry link skipped (--disable_reentry_linking).")
+            else:
+                reentry = link_reentry_offline(
+                    video_path=v,
+                    tracks_csv_path=out_csv,
+                    reid_weights_path=reid_weights_path,
+                    debug_dir=reentry_debug_dir,
+                    config=reentry_cfg,
+                )
+                print(f"[INFO] Re-entry link {reentry}")
 
             use_cam1_audit_guidance = (not args.disable_audit_smooth) and args.audit_csv.exists() and is_exact_cam1
             use_cam1_forced_targets = use_cam1_audit_guidance and is_exact_cam1
@@ -846,6 +953,20 @@ def main():
                     if (not bool(pair_fix_25.get("applied", False))) or int(pair_fix_25.get("changed_rows", 0)) <= 0:
                         break
                 print(f"[INFO] Pair split (2 vs 5) total_changed={pair_total_25} rounds={pair_rounds_25}")
+
+                # GT8 gid=0 promotion runs AFTER both pair-splits (gt8_reseq_v1).
+                # When promote ran before the (5 vs 9) split, the classifier moved
+                # 9 of 13 newly promoted GT8 rows from ID 9 into ID 5 because those
+                # tracklet embeddings resembled the black-shirt-boy cluster.
+                # Running promote last means the pair-split has already exited and
+                # cannot reclassify the new rows.
+                promo_fix_gt8 = promote_pred0_to_target_from_audit(
+                    tracks_csv_path=out_csv,
+                    audit_csv_path=args.audit_csv,
+                    target_gid_by_gt={"8": 9},
+                    iou_threshold=0.34,
+                )
+                print(f"[INFO] Promote GT8 pred=0 to target (post-split) {promo_fix_gt8}")
 
             # FULL_CAM1: align IDs to CAM1 reference identities automatically
             # (no manual force-map), then run one more overlap clean pass.

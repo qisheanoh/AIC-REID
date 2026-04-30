@@ -1,0 +1,21 @@
+{
+  "video": "FULL_CAM1.mp4",
+  "resolution": [
+    2560,
+    1944
+  ],
+  "fps": 12.1612,
+  "frame_count": 3616,
+  "duration_s": 297.34,
+  "codec": "hevc",
+  "quality": {
+    "total_frames": 3616,
+    "bad_frames": 144,
+    "bad_pct": 3.98,
+    "mean_gray_avg": 109.95,
+    "std_gray_avg": 52.46,
+    "reasons": {
+      "white_ratio": 144
+    }
+  }
+}

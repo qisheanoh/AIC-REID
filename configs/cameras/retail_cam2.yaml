@@ -1,0 +1,40 @@
+camera_id: cam2
+
+# ✅ REQUIRED (relative to repo root) OR rtsp://....
+video_source: data/raw/retail-shop/CAM2.mp4
+# video_source: data/raw/person_01/1_2_crop.mp4
+# video_source: rtsp://username:password@ip/stream
+
+# ✅ zones definition file used by run_stream.py
+zones_config: configs/zones/zones_cam2.yaml
+
+kpi_csv_glob: runs/kpi_batch/retail-shop_CAM2_tracks.csv
+
+# optional (if your FPS is missing or wrong)
+fps_override: null
+
+db:
+  path: data/retail.db
+
+detector:
+  weights: yolov8s.pt
+  imgsz: 960
+  conf: 0.25
+  iou: 0.50
+  classes: [0]
+
+tracker:
+  track_thresh: 0.50
+  active_match_iou_thresh: 0.30
+  lost_match_iou_thresh: 0.12
+  match_feat_thresh: 0.15
+  track_buffer: 120
+
+reid:
+  enabled: true
+  model_name: osnet_x1_0
+  weights_path: /Users/ohqishean/.torchreid/osnet_x1_0_msmt17.pth
+
+privacy:
+  redact: false
+  store_frames: true
