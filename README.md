@@ -15,11 +15,28 @@ This project combines:
 - `src/`: core pipeline, trackers, ReID, analytics, server
 - `scripts/`: runnable entry points for batch runs, cross-camera runs, diagnostics, and evaluation
 - `configs/`: camera, app, and zone YAML configurations
-- `data/raw/`: input videos (ignored in git)
+- `data/raw/`: input videos
 - `models/`: detector/ReID weights (ignored in git)
 - `runs/`: generated outputs (tracks, reports, diagnostics, visualizations)
 - `experiments/`: audit sheets, dense-MOT protocol files, and evaluation assets
 - `docs/`: project/report and demo documentation
+
+## Clone and Run with Git LFS (Required)
+
+Use this setup in a fresh clone:
+
+```bash
+git lfs install
+git clone https://github.com/qisheanoh/AIC-REID.git
+cd AIC-REID
+git lfs pull
+```
+
+Then run:
+
+```bash
+uvicorn src.server.api:app --host 127.0.0.1 --port 8000
+```
 
 ## Environment Setup
 
@@ -117,6 +134,7 @@ python scripts/ingest_kpi.py --config configs/cameras/kpi_retailshop_cam1.yaml
 
 ## Notes
 
-- This repo intentionally ignores large raw datasets (`data/raw/`), training datasets (`data/datasets/`), and model files (`models/`).
+- Large binary assets in this repository are tracked with Git LFS. Always run `git lfs pull` after cloning.
+- Avoid downloading source as a ZIP for this project; ZIP archives do not fetch real Git LFS file contents.
+- Model files under `models/` are still ignored and should be provided locally when needed.
 - Several files in `runs/` and `experiments/` are committed as reproducibility artifacts from prior experiments.
-- For large binary files in version control, Git LFS is recommended.
