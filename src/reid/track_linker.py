@@ -3755,6 +3755,8 @@ def stitch_track_ids(
     max_gap_frames: int = 1200,
     min_merge_score: float = 0.66,
 ) -> dict:
+    video_path = Path(video_path)
+    tracks_csv_path = Path(tracks_csv_path)
     _, rows = _load_rows(tracks_csv_path)
     if not rows:
         return {"merged_pairs": 0, "id_map": {}, "total_ids": 0}

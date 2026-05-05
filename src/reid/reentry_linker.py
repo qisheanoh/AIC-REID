@@ -1007,6 +1007,8 @@ def link_reentry_offline(
     config: Optional[ReentryConfig] = None,
 ) -> dict:
     cfg = config or ReentryConfig()
+    video_path = Path(video_path)
+    tracks_csv_path = Path(tracks_csv_path)
     fieldnames, rows = _load_rows(tracks_csv_path)
     if not rows:
         return {"applied": False, "reason": "empty_tracks"}
